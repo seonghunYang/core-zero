@@ -49,7 +49,7 @@ export function useControlledState<T = any>({
         onChangeCaller(value, ...args);
       }
     },
-    []
+    [isControlled, currentValue, onChange]
   );
 
   return [currentValue, setValue];
