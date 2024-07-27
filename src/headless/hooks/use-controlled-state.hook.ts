@@ -1,8 +1,8 @@
 import { SetStateAction, useCallback, useState } from "react";
 
 interface UseControlledStateArgs<T = any> {
-  value?: T;
-  defaultValue: T;
+  value?: Exclude<T, undefined>;
+  defaultValue: Exclude<T, undefined>;
 }
 
 type UseControlledStateReturn<T = any> = [T, React.Dispatch<SetStateAction<T>>];
