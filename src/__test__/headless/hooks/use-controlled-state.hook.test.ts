@@ -1,7 +1,7 @@
 import { describe, expect, it } from "@jest/globals";
-import { renderHook } from "@testing-library/react";
+import { act, renderHook } from "@testing-library/react";
 import { useControlledState } from "../../../headless/hooks/use-controlled-state.hook";
-import { act, useState } from "react";
+import { useState } from "react";
 
 function controlledHook(props?: { onChange?: (v: boolean) => void }) {
   const [_value, _setValue] = useState(false);
@@ -37,6 +37,7 @@ describe("useControlledState", () => {
 
       expect(result.current.value).toBe(true);
     });
+
     it("control-function callback-onChangeCallback", () => {
       const { result } = renderHook(() => {
         const [callbackCall, setCallbackCall] = useState(false);
@@ -60,7 +61,15 @@ describe("useControlledState", () => {
     });
   });
 
-  describe("control", () => {
+  describe("controlled", () => {
+    it("control", () => {
+      const { result } = renderHook(() => ({
+        ...controlledHook(),
+      }));
+
+      expect(result.current.value).toBe(false);
+    });
+
     it("control-internal hook", () => {
       const { result } = renderHook(() => ({
         ...controlledHook(),
