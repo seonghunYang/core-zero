@@ -1,22 +1,11 @@
-import React from "react";
-import { useOverlayTriggerState } from "../../hooks/use-overlay-trigger-state.hook";
-import { useOverlayTrigger } from "react-aria";
 import { Button } from "../button/button";
-
-
+import { usePopoverContext } from "./popover";
 
 export function PopoverTrigger() {
-  const state = useOverlayTriggerState({ defaultOpen: false });
-  const ref = React.useRef<HTMLButtonElement>(null);
-
-  let { triggerProps, overlayProps } = useOverlayTrigger(
-    { type: "dialog" },
-    state,
-    ref
-  );
+  const { triggerRef, triggerProps, overlayProps } = usePopoverContext();
 
   return (
-    <Button {...triggerProps} buttonRef={ref}>
+    <Button {...triggerProps} buttonRef={triggerRef}>
       click
     </Button>
   );
