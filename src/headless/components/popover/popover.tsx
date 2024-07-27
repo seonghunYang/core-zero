@@ -1,17 +1,33 @@
-import type { AriaPopoverProps } from "react-aria";
-import { DismissButton, Overlay, usePopover } from "react-aria";
-import { OverlayTriggerState } from "../../hooks/use-overlay-trigger-state.hook";
-import { useRef } from "react";
+import type { AriaPopoverProps, PopoverAria } from "react-aria";
+import { OverlayTriggerAria, useOverlayTrigger, usePopover } from "react-aria";
+import {
+  OverlayTriggerState,
+  useOverlayTriggerState,
+} from "../../hooks/use-overlay-trigger-state.hook";
+import { createContext, useContext, useRef } from "react";
 
-interface PopoverProps extends Omit<AriaPopoverProps, "popoverRef"> {
-  children: React.ReactNode;
+type PopoverAriaType = PopoverAria & OverlayTriggerAria;
+
+interface PopoverContextValue extends PopoverAriaType {
+  popoverRef: React.RefObject<HTMLDivElement>;
+  triggerRef: React.RefObject<HTMLButtonElement>;
   state: OverlayTriggerState;
 }
 
-export function Popover({ children, state, ...props }: PopoverProps) {
-  let popoverRef = useRef<HTMLDivElement>(null);
+const PopoverContext = createContext<PopoverContextValue | null>(null);
 
-  let { popoverProps, underlayProps, arrowProps, placement } = usePopover(
+interface PopoverRootProps extends Omit<AriaPopoverProps, "popoverRef"> {
+  children: React.ReactNode;
+  // state: OverlayTriggerState;
+}
+
+export function PopoverRoot({ children, ...props }: PopoverRootProps) {
+  const state = useOverlayTriggerState({ defaultOpen: false });
+
+  let popoverRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+
+  let popoverProps = usePopover(
     {
       ...props,
       popoverRef,
@@ -19,22 +35,31 @@ export function Popover({ children, state, ...props }: PopoverProps) {
     state
   );
 
+  let overlayTriggerProps = useOverlayTrigger(
+    { type: "dialog" },
+    state,
+    triggerRef
+  );
+
   return (
-    <Overlay>
-      <div {...underlayProps} className="underlay" />
-      <div {...popoverProps} ref={popoverRef} className="popover">
-        <svg
-          {...arrowProps}
-          className="arrow"
-          data-placement={placement}
-          viewBox="0 0 12 12"
-        >
-          <path d="M0 0 L6 6 L12 0" />
-        </svg>
-        <DismissButton onDismiss={state.close} />
-        {children}
-        <DismissButton onDismiss={state.close} />
-      </div>
-    </Overlay>
+    <PopoverContext.Provider
+      value={{
+        ...popoverProps,
+        ...overlayTriggerProps,
+        popoverRef,
+        triggerRef,
+        state,
+      }}
+    >
+      {children}
+    </PopoverContext.Provider>
   );
 }
+
+export const usePopoverContext = () => {
+  let context = useContext(PopoverContext);
+  if (context === null) {
+    throw new Error("usePopoverContext must be used within a Popover");
+  }
+  return context;
+};
