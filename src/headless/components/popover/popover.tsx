@@ -16,7 +16,8 @@ interface PopoverContextValue extends PopoverAriaType {
 
 const PopoverContext = createContext<PopoverContextValue | null>(null);
 
-interface PopoverRootProps extends Omit<AriaPopoverProps, "popoverRef"> {
+interface PopoverRootProps
+  extends Omit<AriaPopoverProps, "popoverRef" | "triggerRef"> {
   children: React.ReactNode;
   // state: OverlayTriggerState;
 }
@@ -24,12 +25,13 @@ interface PopoverRootProps extends Omit<AriaPopoverProps, "popoverRef"> {
 export function PopoverRoot({ children, ...props }: PopoverRootProps) {
   const state = useOverlayTriggerState({ defaultOpen: false });
 
-  let popoverRef = useRef<HTMLDivElement>(null);
+  const popoverRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
 
   let popoverProps = usePopover(
     {
       ...props,
+      triggerRef,
       popoverRef,
     },
     state
