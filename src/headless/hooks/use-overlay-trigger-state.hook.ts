@@ -21,6 +21,7 @@ export function useOverlayTriggerState(
   const [isOpen, setOpen] = useControlledState({
     value: props.isOpen,
     defaultValue: props.defaultOpen ?? false,
+    onChange: props.onOpenChange,
   });
 
   const open = useCallback(() => {
