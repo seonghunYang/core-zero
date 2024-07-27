@@ -1,21 +1,21 @@
 import { SetStateAction, useCallback, useState } from "react";
 
 interface UseControlledStateArgs<T = any> {
-  valueProps?: T;
+  value?: T;
   defaultValue: T;
 }
 
 type UseControlledStateReturn<T = any> = [T, React.Dispatch<SetStateAction<T>>];
 
 export function useControlledState<T = any>({
-  valueProps,
+  value,
   defaultValue,
 }: UseControlledStateArgs<T>): UseControlledStateReturn<T> {
-  const [state, setState] = useState<T>(defaultValue);
+  const [state, setState] = useState<T>(value || defaultValue);
 
-  const isControlled = valueProps !== undefined
+  const isControlled = value !== undefined;
 
-  const value = isControlled ? valueProps : state;
+  const currentValue = isControlled ? value : state;
 
   const setValue: React.Dispatch<SetStateAction<T>> = useCallback(
     (newValue) => {
@@ -24,5 +24,5 @@ export function useControlledState<T = any>({
     []
   );
 
-  return [value, setValue];
+  return [currentValue, setValue];
 }
