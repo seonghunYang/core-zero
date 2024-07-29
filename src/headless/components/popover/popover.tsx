@@ -7,7 +7,7 @@ import {
 import {
   OverlayState,
   useOverlayState,
-} from "../../hooks/use-overlay-trigger-state.hook";
+} from "../../hooks/use-overlay-state.hook";
 import { createContext, useContext, useRef } from "react";
 
 type PopoverAriaType = PopoverAria & OverlayTriggerAria;

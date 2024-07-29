@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { Popover } from ".";
-import { useOverlayState } from "../../hooks/use-overlay-trigger-state.hook";
+import { useOverlayState } from "../../hooks/use-overlay-state.hook";
 
 const meta = {
   title: "Headless/Components/Popover",

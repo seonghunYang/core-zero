@@ -1,4 +1,4 @@
-import { useOverlayState } from "./use-overlay-trigger-state.hook";
+import { useOverlayState } from "./use-overlay-state.hook";
 
 // interface Use
 
