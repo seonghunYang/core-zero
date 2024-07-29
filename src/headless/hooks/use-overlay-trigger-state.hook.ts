@@ -1,13 +1,13 @@
 import { useCallback } from "react";
 import { useControlledState } from "./use-controlled-state.hook";
 
-export interface OverlayTriggerProps {
+export interface OverlayProps {
   isOpen?: boolean;
   defaultOpen?: boolean;
   onOpenChange?: (isOpen: boolean) => void;
 }
 
-export interface OverlayTriggerState {
+export interface OverlayState {
   readonly isOpen: boolean;
   setOpen(isOpen: boolean): void;
   open(): void;
@@ -15,9 +15,7 @@ export interface OverlayTriggerState {
   toggle(): void;
 }
 
-export function useOverlayTriggerState(
-  props: OverlayTriggerProps
-): OverlayTriggerState {
+export function useOverlayState(props: OverlayProps): OverlayState {
   const [isOpen, setOpen] = useControlledState({
     value: props.isOpen,
     defaultValue: props.defaultOpen ?? false,

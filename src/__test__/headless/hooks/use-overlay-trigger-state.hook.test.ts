@@ -1,14 +1,14 @@
 import { describe, expect, it } from "@jest/globals";
 import { act, renderHook } from "@testing-library/react";
 
-import { useOverlayTriggerState } from "../../../headless/hooks/use-overlay-trigger-state.hook";
+import { useOverlayState } from "../../../headless/hooks/use-overlay-trigger-state.hook";
 import { useState } from "react";
 
 function controlledHook(props?: { onChange?: (v: boolean) => void }) {
   const [_isOpen, _setOpen] = useState(false);
   return {
     _isOpen,
-    ...useOverlayTriggerState({
+    ...useOverlayState({
       isOpen: _isOpen,
       onOpenChange: (isOpen) => {
         props?.onChange && props.onChange(isOpen);
@@ -18,11 +18,11 @@ function controlledHook(props?: { onChange?: (v: boolean) => void }) {
   };
 }
 
-describe("useOverlayTriggerState", () => {
+describe("useOverlayState", () => {
   describe("unControlled", () => {
     it("unControl", () => {
       const { result } = renderHook(() => {
-        const { isOpen, setOpen } = useOverlayTriggerState({
+        const { isOpen, setOpen } = useOverlayState({
           defaultOpen: false,
         });
         return {
@@ -36,7 +36,7 @@ describe("useOverlayTriggerState", () => {
 
     it("setOpen(true)", () => {
       const { result } = renderHook(() => ({
-        ...useOverlayTriggerState({
+        ...useOverlayState({
           defaultOpen: false,
         }),
       }));
@@ -50,7 +50,7 @@ describe("useOverlayTriggerState", () => {
 
     it("open", () => {
       const { result } = renderHook(() => ({
-        ...useOverlayTriggerState({
+        ...useOverlayState({
           defaultOpen: false,
         }),
       }));
@@ -64,7 +64,7 @@ describe("useOverlayTriggerState", () => {
 
     it("close", () => {
       const { result } = renderHook(() => ({
-        ...useOverlayTriggerState({
+        ...useOverlayState({
           defaultOpen: false,
         }),
       }));
@@ -78,7 +78,7 @@ describe("useOverlayTriggerState", () => {
 
     it("open and close", () => {
       const { result } = renderHook(() => ({
-        ...useOverlayTriggerState({
+        ...useOverlayState({
           defaultOpen: false,
         }),
       }));
@@ -98,7 +98,7 @@ describe("useOverlayTriggerState", () => {
 
     it("toggle", () => {
       const { result } = renderHook(() => ({
-        ...useOverlayTriggerState({
+        ...useOverlayState({
           defaultOpen: false,
         }),
       }));
