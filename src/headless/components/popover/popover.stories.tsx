@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 
 import { Popover } from ".";
 import { useOverlayState } from "../../hooks/use-overlay-state.hook";
+import { usePopover } from "../../hooks/use-popover.hook";
 
 const meta = {
   title: "Headless/Components/Popover",
@@ -31,9 +32,9 @@ export const Default: Story = {
   render,
 };
 
-export const Control: Story = {
+export const StateControl: Story = {
   render: () => {
-    const state = useOverlayState({ defaultOpen: false });
+    const { state } = usePopover({ defaultOpen: false });
 
     return (
       <>
@@ -47,3 +48,5 @@ export const Control: Story = {
     );
   },
 };
+
+// export const TriggerRefControl: Story = {}
