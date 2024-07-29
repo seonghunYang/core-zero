@@ -1,5 +1,9 @@
 import type { AriaPopoverProps, PopoverAria } from "react-aria";
-import { OverlayTriggerAria, useOverlayTrigger, usePopover } from "react-aria";
+import {
+  OverlayTriggerAria,
+  useOverlayTrigger as useOverlayTriggerAria,
+  usePopover as usePopoverAria,
+} from "react-aria";
 import {
   OverlayTriggerState,
   useOverlayTriggerState,
@@ -32,7 +36,7 @@ export function PopoverRoot({ children, ...props }: PopoverRootProps) {
   const popoverRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
 
-  let popoverProps = usePopover(
+  let popoverProps = usePopoverAria(
     {
       ...props,
       triggerRef,
@@ -41,7 +45,7 @@ export function PopoverRoot({ children, ...props }: PopoverRootProps) {
     state
   );
 
-  let overlayTriggerProps = useOverlayTrigger(
+  let overlayTriggerProps = useOverlayTriggerAria(
     { type: "dialog" },
     state,
     triggerRef
