@@ -9,6 +9,7 @@ import {
   useOverlayState,
 } from "../../hooks/use-overlay-state.hook";
 import { createContext, useContext, useRef } from "react";
+import { usePopover } from "../../hooks/use-popover.hook";
 
 type PopoverAriaType = PopoverAria & OverlayTriggerAria;
 
@@ -27,29 +28,10 @@ interface PopoverRootProps
 }
 
 export function PopoverRoot({ children, ...props }: PopoverRootProps) {
-  const state = useOverlayState({
-    isOpen: props.state?.isOpen,
-    defaultOpen: false,
-    onOpenChange: props.state?.setOpen,
-  });
-
-  const popoverRef = useRef<HTMLDivElement>(null);
-  const triggerRef = useRef<HTMLButtonElement>(null);
-
-  let popoverProps = usePopoverAria(
-    {
-      ...props,
-      triggerRef,
-      popoverRef,
-    },
-    state
-  );
-
-  let overlayTriggerProps = useOverlayTriggerAria(
-    { type: "dialog" },
-    state,
-    triggerRef
-  );
+  const { state, popoverRef, triggerRef, popoverProps, overlayTriggerProps } =
+    usePopover({
+      state: props.state,
+    });
 
   return (
     <PopoverContext.Provider
