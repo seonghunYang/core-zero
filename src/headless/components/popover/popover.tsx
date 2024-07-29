@@ -25,12 +25,14 @@ interface PopoverRootProps
   extends Omit<AriaPopoverProps, "popoverRef" | "triggerRef"> {
   children: React.ReactNode;
   state?: OverlayState;
+  defaultOpen?: boolean;
 }
 
 export function PopoverRoot({ children, ...props }: PopoverRootProps) {
   const { state, popoverRef, triggerRef, popoverProps, overlayTriggerProps } =
     usePopover({
       state: props.state,
+      defaultOpen: props.defaultOpen,
     });
 
   return (
