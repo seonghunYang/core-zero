@@ -19,11 +19,15 @@ const PopoverContext = createContext<PopoverContextValue | null>(null);
 interface PopoverRootProps
   extends Omit<AriaPopoverProps, "popoverRef" | "triggerRef"> {
   children: React.ReactNode;
-  // state: OverlayTriggerState;
+  state?: OverlayTriggerState;
 }
 
 export function PopoverRoot({ children, ...props }: PopoverRootProps) {
-  const state = useOverlayTriggerState({ defaultOpen: false });
+  const state = useOverlayTriggerState({
+    isOpen: props.state?.isOpen,
+    defaultOpen: false,
+    onOpenChange: props.state?.setOpen,
+  });
 
   const popoverRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);

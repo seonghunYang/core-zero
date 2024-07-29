@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { Popover } from ".";
+import { useOverlayTriggerState } from "../../hooks/use-overlay-trigger-state.hook";
 
 const meta = {
   title: "Headless/Components/Popover",
@@ -28,4 +29,21 @@ const render = () => {
 
 export const Default: Story = {
   render,
+};
+
+export const Control: Story = {
+  render: () => {
+    const state = useOverlayTriggerState({ defaultOpen: false });
+
+    return (
+      <>
+        <Popover state={state}>
+          <Popover.Trigger>click click</Popover.Trigger>
+          <Popover.Content>
+            <div>Popover content</div>
+          </Popover.Content>
+        </Popover>
+      </>
+    );
+  },
 };
