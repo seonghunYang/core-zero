@@ -12,12 +12,13 @@ export function PopoverContent({ children }: PopoverContentProps) {
     underlayProps,
     arrowProps,
     placement,
-    state,
+    isOpen,
+    close,
   } = usePopoverContext();
 
   return (
     <>
-      {state.isOpen && (
+      {isOpen && (
         <Overlay>
           <div {...underlayProps} className="underlay" />
           <div {...popoverProps} ref={popoverRef} className="popover">
@@ -29,9 +30,9 @@ export function PopoverContent({ children }: PopoverContentProps) {
             >
               <path d="M0 0 L6 6 L12 0" />
             </svg>
-            <DismissButton onDismiss={state.close} />
+            <DismissButton onDismiss={close} />
             {children}
-            <DismissButton onDismiss={state.close} />
+            <DismissButton onDismiss={close} />
           </div>
         </Overlay>
       )}
