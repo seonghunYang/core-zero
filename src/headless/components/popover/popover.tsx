@@ -1,19 +1,14 @@
 import type { AriaPopoverProps, PopoverAria } from "react-aria";
-import {
-  OverlayTriggerAria,
-} from "react-aria";
-import {
-  OverlayState,
-} from "../../hooks/use-overlay-state.hook";
+import { OverlayTriggerAria } from "react-aria";
+import { OverlayState } from "../../hooks/use-overlay-state.hook";
 import { createContext, useContext } from "react";
 import { usePopover } from "../../hooks/use-popover.hook";
 
-type PopoverAriaType = PopoverAria & OverlayTriggerAria;
+type PopoverAriaType = PopoverAria & OverlayTriggerAria & OverlayState;
 
 interface PopoverContextValue extends PopoverAriaType {
   popoverRef: React.RefObject<HTMLDivElement>;
   triggerRef: React.RefObject<HTMLButtonElement>;
-  state: OverlayState;
 }
 
 const PopoverContext = createContext<PopoverContextValue | null>(null);
@@ -21,16 +16,27 @@ const PopoverContext = createContext<PopoverContextValue | null>(null);
 interface PopoverRootProps
   extends Omit<AriaPopoverProps, "popoverRef" | "triggerRef"> {
   children: React.ReactNode;
-  state?: OverlayState;
+  isOpen?: boolean;
   defaultOpen?: boolean;
+  onChange?: (isOpen: boolean) => void;
 }
 
 export function PopoverRoot({ children, ...props }: PopoverRootProps) {
-  const { state, popoverRef, triggerRef, popoverProps, overlayTriggerProps } =
-    usePopover({
-      state: props.state,
-      defaultOpen: props.defaultOpen,
-    });
+  const {
+    isOpen,
+    setOpen,
+    open,
+    close,
+    toggle,
+    popoverRef,
+    triggerRef,
+    popoverProps,
+    overlayTriggerProps,
+  } = usePopover({
+    isOpen: props.isOpen,
+    defaultOpen: props.defaultOpen,
+    onChange: props.onChange,
+  });
 
   return (
     <PopoverContext.Provider
@@ -39,7 +45,11 @@ export function PopoverRoot({ children, ...props }: PopoverRootProps) {
         ...overlayTriggerProps,
         popoverRef,
         triggerRef,
-        state,
+        isOpen,
+        setOpen,
+        open,
+        close,
+        toggle,
       }}
     >
       {children}

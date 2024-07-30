@@ -8,15 +8,16 @@ import {
 
 // 타입이 컴포넌트와 결국 같아야함(혹은 가져와야함)
 interface UsePopoverArgs {
-  state?: OverlayState;
+  isOpen?: boolean;
   defaultOpen?: boolean;
+  onChange?: (isOpen: boolean) => void;
 }
 
 export function usePopover(props: UsePopoverArgs) {
   const state = useOverlayState({
-    isOpen: props.state?.isOpen,
+    isOpen: props.isOpen,
     defaultOpen: props.defaultOpen ?? false,
-    onOpenChange: props.state?.setOpen,
+    onOpenChange: props.onChange,
   });
 
   // 하나씩 control 가능하게 변경, 고민인건 compound 아닐 때도 사용가능하도록 할 필요가 있음
@@ -41,7 +42,7 @@ export function usePopover(props: UsePopoverArgs) {
   );
 
   return {
-    state,
+    ...state,
     popoverRef,
     triggerRef,
     popoverProps,
