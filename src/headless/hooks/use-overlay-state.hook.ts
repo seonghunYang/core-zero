@@ -15,7 +15,15 @@ export interface OverlayState {
   toggle(): void;
 }
 
-export function useOverlayState(props: OverlayProps): OverlayState {
+export interface OverlayCallback {
+  onOpen(): void;
+  onClose(): void;
+  onToggle(): void;
+}
+
+type UseOverlayStateArgs = Partial<OverlayCallback> & OverlayProps;
+
+export function useOverlayState(props: UseOverlayStateArgs): OverlayState {
   const [isOpen, setOpen] = useControlledState({
     value: props.isOpen,
     defaultValue: props.defaultOpen ?? false,
@@ -24,15 +32,18 @@ export function useOverlayState(props: OverlayProps): OverlayState {
 
   const open = useCallback(() => {
     setOpen(true);
-  }, [setOpen]);
+    props.onOpen?.();
+  }, [setOpen, props.onOpen]);
 
   const close = useCallback(() => {
     setOpen(false);
-  }, [setOpen]);
+    props.onClose?.();
+  }, [setOpen, props.onClose]);
 
   const toggle = useCallback(() => {
     setOpen(!isOpen);
-  }, [setOpen, isOpen]);
+    props.onToggle?.();
+  }, [setOpen, isOpen, props.onToggle]);
 
   return {
     isOpen,
