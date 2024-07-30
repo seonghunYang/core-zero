@@ -1,16 +1,31 @@
 import { useRef } from "react";
-import { useOverlayState } from "./use-overlay-state.hook";
+import { OverlayCallback, useOverlayState } from "./use-overlay-state.hook";
 import {
+  OverlayTriggerAria,
+  PopoverAria,
   useOverlayTrigger as useOverlayTriggerAria,
   usePopover as usePopoverAria,
 } from "react-aria";
 import { PopoverProps } from "../components/popover/popover";
 
-export function usePopover(props: PopoverProps) {
+export interface PopoverState extends OverlayCallback {
+  isOpen: boolean;
+  setOpen(isOpen: boolean): void;
+}
+
+interface UsePopoverReturn extends PopoverState {
+  popoverProps: PopoverAria;
+  overlayTriggerProps: OverlayTriggerAria;
+  popoverRef: React.RefObject<HTMLDivElement>;
+  triggerRef: React.RefObject<HTMLButtonElement>;
+}
+
+export function usePopover(props: PopoverProps): UsePopoverReturn {
   const state = useOverlayState({
     isOpen: props.isOpen,
     defaultOpen: props.defaultOpen ?? false,
     onOpenChange: props.onChange,
+    ...props,
   });
 
   // 하나씩 control 가능하게 변경, 고민인건 compound 아닐 때도 사용가능하도록 할 필요가 있음
@@ -36,6 +51,9 @@ export function usePopover(props: PopoverProps) {
 
   return {
     ...state,
+    onClose: state.close,
+    onOpen: state.open,
+    onToggle: state.toggle,
     popoverRef,
     triggerRef,
     popoverProps,
