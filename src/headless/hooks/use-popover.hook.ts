@@ -14,6 +14,7 @@ export interface PopoverState extends OverlayCallback {
 }
 
 interface UsePopoverReturn extends PopoverState {
+  callbacks: OverlayCallback;
   popoverProps: PopoverAria;
   overlayTriggerProps: OverlayTriggerAria;
   popoverRef: React.RefObject<HTMLDivElement>;
@@ -49,11 +50,16 @@ export function usePopover(props: PopoverProps): UsePopoverReturn {
     triggerRef
   );
 
-  return {
-    ...state,
+  const callbacks = {
     onClose: state.close,
     onOpen: state.open,
     onToggle: state.toggle,
+  };
+
+  return {
+    ...state,
+    ...callbacks,
+    callbacks,
     popoverRef,
     triggerRef,
     popoverProps,
