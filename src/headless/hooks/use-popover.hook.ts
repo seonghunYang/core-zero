@@ -1,19 +1,12 @@
 import { useRef } from "react";
 import { useOverlayState } from "./use-overlay-state.hook";
-import type { OverlayState } from "./use-overlay-state.hook";
 import {
   useOverlayTrigger as useOverlayTriggerAria,
   usePopover as usePopoverAria,
 } from "react-aria";
+import { PopoverProps } from "../components/popover/popover";
 
-// 타입이 컴포넌트와 결국 같아야함(혹은 가져와야함)
-interface UsePopoverArgs {
-  isOpen?: boolean;
-  defaultOpen?: boolean;
-  onChange?: (isOpen: boolean) => void;
-}
-
-export function usePopover(props: UsePopoverArgs) {
+export function usePopover(props: PopoverProps) {
   const state = useOverlayState({
     isOpen: props.isOpen,
     defaultOpen: props.defaultOpen ?? false,

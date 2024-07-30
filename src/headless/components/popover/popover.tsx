@@ -13,13 +13,16 @@ interface PopoverContextValue extends PopoverAriaType {
 
 const PopoverContext = createContext<PopoverContextValue | null>(null);
 
-interface PopoverRootProps
-  extends Omit<AriaPopoverProps, "popoverRef" | "triggerRef"> {
-  children: React.ReactNode;
+export interface PopoverProps {
   isOpen?: boolean;
   defaultOpen?: boolean;
   onChange?: (isOpen: boolean) => void;
 }
+
+type PopoverRootProps = PopoverProps &
+  Omit<AriaPopoverProps, "popoverRef" | "triggerRef"> & {
+    children: React.ReactNode;
+  };
 
 export function PopoverRoot({ children, ...props }: PopoverRootProps) {
   const {
