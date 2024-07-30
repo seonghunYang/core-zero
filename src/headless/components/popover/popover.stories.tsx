@@ -34,11 +34,18 @@ export const Default: Story = {
 
 export const StateControl: Story = {
   render: () => {
-    const { state } = usePopover({ defaultOpen: false });
+    const { isOpen, setOpen } = usePopover({ defaultOpen: false });
+
+    const handleChange = (isOpen: boolean) => {
+      console.log("hi");
+      setOpen(isOpen);
+    };
+
+    console.log(isOpen);
 
     return (
       <>
-        <Popover state={state}>
+        <Popover isOpen={isOpen} onChange={handleChange}>
           <Popover.Trigger>click click</Popover.Trigger>
           <Popover.Content>
             <div>Popover content</div>
