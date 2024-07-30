@@ -52,7 +52,6 @@ export const StateControl: Story = {
     const { isOpen, setOpen } = usePopover({ defaultOpen: false });
 
     const handleChange = (isOpen: boolean) => {
-      console.log("hi");
       setOpen(isOpen);
     };
 
@@ -61,6 +60,47 @@ export const StateControl: Story = {
     return (
       <>
         <Popover isOpen={isOpen} onChange={handleChange}>
+          <Popover.Trigger>click click</Popover.Trigger>
+          <Popover.Content>
+            <div>Popover content</div>
+          </Popover.Content>
+        </Popover>
+      </>
+    );
+  },
+};
+
+export const StateControlWithoutOnChange: Story = {
+  render: () => {
+    const { isOpen } = usePopover({ defaultOpen: false });
+
+    console.log(isOpen);
+
+    return (
+      <>
+        <Popover isOpen={isOpen}>
+          <Popover.Trigger>click click</Popover.Trigger>
+          <Popover.Content>
+            <div>Popover content</div>
+          </Popover.Content>
+        </Popover>
+      </>
+    );
+  },
+};
+
+export const LogicControl: Story = {
+  render: () => {
+    const { isOpen, onClose } = usePopover({ defaultOpen: false });
+
+    const handleClose = () => {
+      console.log("close");
+      onClose();
+    };
+
+    return (
+      <>
+        <Popover isOpen={isOpen} onClose={handleClose}>
           <Popover.Trigger>click click</Popover.Trigger>
           <Popover.Content>
             <div>Popover content</div>
