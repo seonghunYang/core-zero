@@ -1,14 +1,11 @@
 import type { AriaPopoverProps, PopoverAria } from "react-aria";
 import {
   OverlayTriggerAria,
-  useOverlayTrigger as useOverlayTriggerAria,
-  usePopover as usePopoverAria,
 } from "react-aria";
 import {
   OverlayState,
-  useOverlayState,
 } from "../../hooks/use-overlay-state.hook";
-import { createContext, useContext, useRef } from "react";
+import { createContext, useContext } from "react";
 import { usePopover } from "../../hooks/use-popover.hook";
 
 type PopoverAriaType = PopoverAria & OverlayTriggerAria;
