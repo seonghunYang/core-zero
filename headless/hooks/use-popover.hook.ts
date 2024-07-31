@@ -1,13 +1,8 @@
 import { useRef } from "react";
-import {
-  OverlayCallback,
-  OverlayState,
-  useOverlayState,
-} from "./use-overlay-state.hook";
+import { OverlayState, useOverlayState } from "./use-overlay-state.hook";
 import {
   AriaPopoverProps,
   OverlayTriggerAria,
-  PopoverAria,
   useOverlayTrigger as useOverlayTriggerAria,
   usePopover as usePopoverAria,
 } from "react-aria";
@@ -17,14 +12,9 @@ import {
   PopoverRootAriaProps,
 } from "../components/popover/popover";
 
-export interface PopoverState extends OverlayCallback {
-  isOpen: boolean;
-  setOpen(isOpen: boolean): void;
-}
-
 type RootProps = PopoverRootAriaProps;
 
-interface UsePopoverReturn extends PopoverState {
+interface UsePopoverReturn extends OverlayState {
   popoverProps: PopoverAriaWithoutCenter;
   overlayTriggerProps: OverlayTriggerAria;
   popoverRef: React.RefObject<HTMLDivElement>;
@@ -78,7 +68,6 @@ export function usePopover(props: PopoverProps): UsePopoverReturn {
 
   return {
     ...state,
-    ...callbacks,
     popoverRef,
     triggerRef,
     popoverProps,

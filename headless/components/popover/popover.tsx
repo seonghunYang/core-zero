@@ -1,7 +1,13 @@
 import type { AriaPopoverProps, PopoverAria } from "react-aria";
 import { OverlayTriggerAria } from "react-aria";
 import { createContext, useContext } from "react";
-import { PopoverState, usePopover } from "../../hooks/use-popover.hook";
+import { usePopover } from "../../hooks/use-popover.hook";
+import { OverlayCallback } from "headless/hooks/use-overlay-state.hook";
+
+export interface PopoverState extends OverlayCallback {
+  isOpen: boolean;
+  setOpen(isOpen: boolean): void;
+}
 
 export type PopoverAriaWithoutCenter = Omit<PopoverAria, "placement"> & {
   placement: "top" | "right" | "bottom" | "left";
@@ -24,9 +30,6 @@ export type PopoverProps = {
   isOpen?: boolean;
   defaultOpen?: boolean;
   onChange?: (isOpen: boolean) => void;
-  onClose?: () => void;
-  onOpen?: () => void;
-  onToggle?: () => void;
 } & Omit<AriaPopoverProps, "popoverRef" | "triggerRef" | "placement"> &
   Partial<PopoverRootAriaProps>;
 
