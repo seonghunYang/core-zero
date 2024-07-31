@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 
 import { Popover } from ".";
 import { usePopover } from "../../hooks/use-popover.hook";
+import { useState } from "react";
 
 const meta = {
   title: "Headless/Components/Popover",
@@ -36,6 +37,24 @@ export const DefaultValue: Story = {
     return (
       <>
         <Popover defaultOpen={true}>
+          <Popover.Trigger>click click</Popover.Trigger>
+          <Popover.Content>This is the content of the popover.</Popover.Content>
+        </Popover>
+      </>
+    );
+  },
+};
+
+export const StateControlWithoutHook: Story = {
+  render: () => {
+    const [isOpen, setOpen] = useState(false);
+
+    const handleChange = (isOpen: boolean) => {
+      setOpen(isOpen);
+    };
+    return (
+      <>
+        <Popover isOpen={isOpen} onChange={handleChange}>
           <Popover.Trigger>click click</Popover.Trigger>
           <Popover.Content>This is the content of the popover.</Popover.Content>
         </Popover>
