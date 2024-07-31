@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 
 import { Popover } from ".";
 import { usePopover } from "../../hooks/use-popover.hook";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 const meta = {
   title: "Headless/Components/Popover",
@@ -82,16 +82,49 @@ export const StateControl: Story = {
 
 export const LogicControl: Story = {
   render: () => {
-    const { rootProps, onClose } = usePopover({ defaultOpen: false });
+    const { rootProps, close } = usePopover({
+      defaultOpen: false,
+      onClose: () => console.log("close"),
+    });
 
     const handleClose = () => {
-      console.log("close");
-      onClose();
+      // console.log("close");
+      close();
     };
 
     return (
       <>
         <Popover {...rootProps} onClose={handleClose}>
+          <Popover.Trigger>click click</Popover.Trigger>
+          <Popover.Content>
+            <button onClick={handleClose}>hi</button>
+            <div>Popover content</div>
+          </Popover.Content>
+        </Popover>
+      </>
+    );
+  },
+};
+
+export const LogicControl2: Story = {
+  render: () => {
+    const { getRootProps, close } = usePopover({
+      defaultOpen: false,
+      onClose: () => console.log("close"),
+    });
+
+    const handleClose = () => {
+      // console.log("close");
+      close();
+    };
+
+    return (
+      <>
+        <Popover
+          {...getRootProps({
+            onClose: handleClose,
+          })}
+        >
           <Popover.Trigger>click click</Popover.Trigger>
           <Popover.Content>
             <div>Popover content</div>
@@ -102,4 +135,22 @@ export const LogicControl: Story = {
   },
 };
 
-// export const TriggerRefControl: Story = {}
+export const TriggerRefControl: Story = {
+  render: () => {
+    const ref = useRef<HTMLDivElement>(null);
+    const { rootProps } = usePopover({ defaultOpen: false, triggerRef: ref });
+
+    return (
+      <>
+        <Popover {...rootProps}>
+          <Popover.Trigger as="div" ref={ref}>
+            click
+          </Popover.Trigger>
+          <Popover.Content>
+            <div>Popover content</div>
+          </Popover.Content>
+        </Popover>
+      </>
+    );
+  },
+};
