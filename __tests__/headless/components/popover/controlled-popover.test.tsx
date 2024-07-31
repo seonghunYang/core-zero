@@ -3,16 +3,12 @@ import { Popover } from "headless/components/popover";
 import userEvent from "@testing-library/user-event";
 import { usePopover } from "headless/hooks/use-popover.hook";
 
-function ControlledPopoverWithChangeCallback() {
-  const { isOpen, setOpen } = usePopover({ defaultOpen: false });
-
-  const handleChange = (isOpen: boolean) => {
-    setOpen(isOpen);
-  };
+function ControlledPopover() {
+  const { rootProps } = usePopover({ defaultOpen: false });
 
   return (
     <>
-      <Popover isOpen={isOpen} onChange={handleChange}>
+      <Popover {...rootProps}>
         <Popover.Trigger>click</Popover.Trigger>
         <Popover.Content>
           <div>Popover content</div>
@@ -24,7 +20,7 @@ function ControlledPopoverWithChangeCallback() {
 
 describe("controlled Popover", () => {
   it("should render", async () => {
-    render(<ControlledPopoverWithChangeCallback />);
+    render(<ControlledPopover />);
 
     expect(screen.getByRole("button")).toHaveTextContent("click");
   });
@@ -32,7 +28,7 @@ describe("controlled Popover", () => {
   it("open and close with trigger button", async () => {
     const user = userEvent.setup();
 
-    render(<ControlledPopoverWithChangeCallback />);
+    render(<ControlledPopover />);
 
     expect(screen.queryByText("Popover content")).not.toBeInTheDocument();
 
@@ -41,6 +37,38 @@ describe("controlled Popover", () => {
     expect(screen.getByText("Popover content")).toBeInTheDocument();
 
     await user.click(screen.getByText("click"));
+
+    expect(screen.queryByText("Popover content")).not.toBeInTheDocument();
+  });
+
+  it("open and close with outside click", async () => {
+    const user = userEvent.setup();
+
+    render(<ControlledPopover />);
+
+    expect(screen.queryByText("Popover content")).not.toBeInTheDocument();
+
+    await user.click(screen.getByText("click"));
+
+    expect(screen.getByText("Popover content")).toBeInTheDocument();
+
+    await user.click(document.body);
+
+    expect(screen.queryByText("Popover content")).not.toBeInTheDocument();
+  });
+
+  it("open and close with escape key", async () => {
+    const user = userEvent.setup();
+
+    render(<ControlledPopover />);
+
+    expect(screen.queryByText("Popover content")).not.toBeInTheDocument();
+
+    await user.click(screen.getByText("click"));
+
+    expect(screen.getByText("Popover content")).toBeInTheDocument();
+
+    await user.keyboard("{Escape}");
 
     expect(screen.queryByText("Popover content")).not.toBeInTheDocument();
   });
