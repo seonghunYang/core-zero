@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { Popover } from ".";
-import { useOverlayState } from "../../hooks/use-overlay-state.hook";
 import { usePopover } from "../../hooks/use-popover.hook";
 import { Dialog } from "../dialog/dialog";
 
@@ -39,11 +38,7 @@ export const DefaultValue: Story = {
       <>
         <Popover defaultOpen={true}>
           <Popover.Trigger>click click</Popover.Trigger>
-          <Popover.Content>
-            <Dialog title="Popover title">
-              This is the content of the popover.
-            </Dialog>
-          </Popover.Content>
+          <Popover.Content>This is the content of the popover.</Popover.Content>
         </Popover>
       </>
     );
