@@ -82,7 +82,7 @@ export const StateControl: Story = {
 
 export const LogicControl: Story = {
   render: () => {
-    const { isOpen, onClose, callbacks } = usePopover({ defaultOpen: false });
+    const { rootProps, onClose } = usePopover({ defaultOpen: false });
 
     const handleClose = () => {
       console.log("close");
@@ -91,12 +91,7 @@ export const LogicControl: Story = {
 
     return (
       <>
-        <Popover
-          isOpen={isOpen}
-          onOpen={callbacks.onOpen}
-          onToggle={callbacks.onToggle}
-          // onClose={handleClose}
-        >
+        <Popover {...rootProps} onClose={handleClose}>
           <Popover.Trigger>click click</Popover.Trigger>
           <Popover.Content>
             <div>Popover content</div>
