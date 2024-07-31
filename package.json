@@ -19,6 +19,9 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.25.2",
+    "@babel/preset-env": "^7.25.2",
+    "@babel/preset-typescript": "^7.24.7",
     "@chromatic-com/storybook": "^1.6.1",
     "@jest/globals": "^29.7.0",
     "@storybook/addon-essentials": "^8.2.6",
@@ -31,11 +34,13 @@
     "@storybook/test": "^8.2.6",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/react": "^16.0.0",
+    "@types/jest": "^29.5.12",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@typescript-eslint/eslint-plugin": "^7.15.0",
     "@typescript-eslint/parser": "^7.15.0",
     "@vitejs/plugin-react": "^4.3.1",
+    "babel-jest": "^29.7.0",
     "eslint": "^8.57.0",
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.7",

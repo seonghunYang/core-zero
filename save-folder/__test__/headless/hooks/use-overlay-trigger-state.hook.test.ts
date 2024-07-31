@@ -1,4 +1,3 @@
-import { describe, expect, it } from "@jest/globals";
 import { act, renderHook } from "@testing-library/react";
 
 import { useOverlayState } from "../../../headless/hooks/use-overlay-state.hook";

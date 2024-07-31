@@ -1,5 +1,6 @@
 import { DismissButton, Overlay } from "react-aria";
 import { usePopoverContext } from "./popover";
+import React from "react";
 
 interface PopoverContentProps {
   children: React.ReactNode;
@@ -13,6 +14,7 @@ export function PopoverContent({ children }: PopoverContentProps) {
     arrowProps,
     placement,
     isOpen,
+    overlayProps,
     onClose,
   } = usePopoverContext();
 
@@ -31,7 +33,7 @@ export function PopoverContent({ children }: PopoverContentProps) {
               <path d="M0 0 L6 6 L12 0" />
             </svg>
             <DismissButton onDismiss={onClose} />
-            {children}
+            {React.cloneElement(children, overlayProps)}
             <DismissButton onDismiss={onClose} />
           </div>
         </Overlay>
