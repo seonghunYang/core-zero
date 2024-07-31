@@ -3,12 +3,20 @@ import { OverlayTriggerAria } from "react-aria";
 import { createContext, useContext } from "react";
 import { PopoverState, usePopover } from "../../hooks/use-popover.hook";
 
-type PopoverAriaType = PopoverAria & OverlayTriggerAria & PopoverState;
+export type PopoverAriaWithoutCenter = Omit<PopoverAria, "placement"> & {
+  placement: "top" | "right" | "bottom" | "left";
+};
 
-interface PopoverContextValue extends PopoverAriaType {
+type PopoverAriaType = PopoverAriaWithoutCenter &
+  OverlayTriggerAria &
+  PopoverState;
+
+export interface PopoverRootAriaProps extends PopoverAriaType {
   popoverRef: React.RefObject<HTMLDivElement>;
   triggerRef: React.RefObject<HTMLButtonElement>;
 }
+
+type PopoverContextValue = PopoverRootAriaProps;
 
 const PopoverContext = createContext<PopoverContextValue | null>(null);
 
@@ -19,24 +27,15 @@ export type PopoverProps = {
   onClose?: () => void;
   onOpen?: () => void;
   onToggle?: () => void;
-} & Omit<AriaPopoverProps, "popoverRef" | "triggerRef">;
+} & Omit<AriaPopoverProps, "popoverRef" | "triggerRef" | "placement"> &
+  Partial<PopoverRootAriaProps>;
 
 interface PopoverRootProps extends PopoverProps {
   children: React.ReactNode;
 }
 
 export function PopoverRoot({ children, ...props }: PopoverRootProps) {
-  const {
-    isOpen,
-    setOpen,
-    onOpen,
-    onClose,
-    onToggle,
-    popoverRef,
-    triggerRef,
-    popoverProps,
-    overlayTriggerProps,
-  } = usePopover({
+  const { rootProps } = usePopover({
     isOpen: props.isOpen,
     defaultOpen: props.defaultOpen,
     ...props,
@@ -45,15 +44,7 @@ export function PopoverRoot({ children, ...props }: PopoverRootProps) {
   return (
     <PopoverContext.Provider
       value={{
-        ...popoverProps,
-        ...overlayTriggerProps,
-        popoverRef,
-        triggerRef,
-        isOpen,
-        setOpen,
-        onOpen,
-        onClose,
-        onToggle,
+        ...rootProps,
       }}
     >
       {children}

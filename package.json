@@ -8,7 +8,8 @@
     "test:watch": "jest --watch",
     "test:ci": "jest --ci",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "type": "tsc --noEmit"
   },
   "dependencies": {
     "next": "latest",
