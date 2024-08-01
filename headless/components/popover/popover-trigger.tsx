@@ -6,7 +6,7 @@ interface PopoverTriggerProps {
 }
 
 export function PopoverTrigger({ children }: PopoverTriggerProps) {
-  const { triggerRef, triggerProps, overlayProps } = usePopoverContext();
+  const { triggerRef, triggerProps } = usePopoverContext();
 
   return (
     <Button {...triggerProps} buttonRef={triggerRef}>

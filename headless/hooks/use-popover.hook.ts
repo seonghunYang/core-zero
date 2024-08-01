@@ -9,16 +9,14 @@ import {
 import {
   PopoverAriaWithoutCenter,
   PopoverProps,
-  PopoverRootAriaProps,
+  PopoverRoot,
 } from "../components/popover/popover";
 
-type RootProps = PopoverRootAriaProps;
+type RootProps = PopoverRoot;
 
 interface UsePopoverReturn extends OverlayState {
   popoverProps: PopoverAriaWithoutCenter;
   overlayTriggerProps: OverlayTriggerAria;
-  popoverRef: React.RefObject<HTMLDivElement>;
-  triggerRef: React.RefObject<HTMLButtonElement>;
   rootProps: RootProps;
 }
 
@@ -68,8 +66,6 @@ export function usePopover(props: PopoverProps): UsePopoverReturn {
 
   return {
     ...state,
-    popoverRef,
-    triggerRef,
     popoverProps,
     overlayTriggerProps,
     rootProps,
