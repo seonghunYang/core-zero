@@ -12,15 +12,17 @@ import {
   PopoverRoot,
 } from "../components/popover/popover";
 
-type RootProps = PopoverRoot;
+type RootProps<T extends Element> = PopoverRoot<T>;
 
-interface UsePopoverReturn extends OverlayState {
+interface UsePopoverReturn<T extends Element> extends OverlayState {
   popoverProps: PopoverAriaWithoutCenter;
   overlayTriggerProps: OverlayTriggerAria;
-  rootProps: RootProps;
+  rootProps: RootProps<T>;
 }
 
-export function usePopover(props: PopoverProps): UsePopoverReturn {
+export function usePopover<T extends Element>(
+  props: PopoverProps<T>
+): UsePopoverReturn<T> {
   const state = useOverlayState({
     isOpen: props.isOpen,
     defaultOpen: props.defaultOpen ?? false,

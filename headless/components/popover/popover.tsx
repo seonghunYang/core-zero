@@ -17,27 +17,30 @@ type PopoverAriaType = PopoverAriaWithoutCenter &
   OverlayTriggerAria &
   PopoverState;
 
-export interface PopoverRoot extends PopoverAriaType {
+export interface PopoverRoot<T extends Element> extends PopoverAriaType {
   popoverRef: React.RefObject<HTMLDivElement>;
-  triggerRef: React.RefObject<HTMLButtonElement>;
+  triggerRef: React.RefObject<T> | React.RefObject<HTMLButtonElement>;
   triggerButtonRef: React.RefObject<HTMLButtonElement>;
 }
 
-type PopoverContextValue = PopoverRoot;
+type PopoverContextValue<T extends Element> = PopoverRoot<T>;
 
-const PopoverContext = createContext<PopoverContextValue | null>(null);
+const PopoverContext = createContext<PopoverContextValue<Element> | null>(null);
 
-export type PopoverProps = {
+export type PopoverProps<T extends Element> = {
   defaultOpen?: boolean;
   onChange?: (isOpen: boolean) => void;
 } & Omit<AriaPopoverProps, "popoverRef" | "triggerRef" | "placement"> &
-  Partial<PopoverRoot>;
+  Partial<PopoverRoot<T>>;
 
-interface PopoverRootProps extends PopoverProps {
+interface PopoverRootProps<T extends Element> extends PopoverProps<T> {
   children: React.ReactNode;
 }
 
-export function PopoverRoot({ children, ...props }: PopoverRootProps) {
+export function PopoverRoot<T extends Element>({
+  children,
+  ...props
+}: PopoverRootProps<T>) {
   const { rootProps } = usePopover({
     isOpen: props.isOpen,
     defaultOpen: props.defaultOpen,
