@@ -67,4 +67,38 @@ describe("Uncontrolled Popover", () => {
 
     expect(screen.queryByText("Popover content")).not.toBeInTheDocument();
   });
+
+  it("open and close with enter and escape key", async () => {
+    const user = userEvent.setup();
+
+    render(unControlledPopover());
+
+    expect(screen.queryByText("Popover content")).not.toBeInTheDocument();
+
+    screen.getByText("click").focus();
+    await user.keyboard("{Enter}");
+
+    expect(screen.getByText("Popover content")).toBeInTheDocument();
+
+    await user.keyboard("{Escape}");
+
+    expect(screen.queryByText("Popover content")).not.toBeInTheDocument();
+  });
+
+  it("open and close with space and escape key", async () => {
+    const user = userEvent.setup();
+
+    render(unControlledPopover());
+
+    expect(screen.queryByText("Popover content")).not.toBeInTheDocument();
+
+    screen.getByText("click").focus();
+    await user.keyboard(" ");
+
+    expect(screen.getByText("Popover content")).toBeInTheDocument();
+
+    await user.keyboard("{Escape}");
+
+    expect(screen.queryByText("Popover content")).not.toBeInTheDocument();
+  });
 });
