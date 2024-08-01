@@ -1,4 +1,4 @@
-import { RefObject } from "react";
+import { ElementType, RefObject, useEffect, useState } from "react";
 import { OverlayState } from "./use-overlay-state.hook";
 import type { OverlayTriggerProps } from "react-aria";
 import {
@@ -11,10 +11,21 @@ export function useOverlayTrigger(
   state: OverlayState,
   ref: RefObject<Element | null>
 ) {
+  const [elementType, setElemepntType] = useState<ElementType | null>(null);
+
+  useEffect(() => {
+    if (ref.current) {
+      setElemepntType(ref.current.localName as ElementType);
+    }
+  }, [ref.current]);
+
   const overlayTriggerAriaProps = useOverlayTriggerAria(props, state, ref);
 
   const { buttonProps: overlayTiggerProps } = useButton(
-    overlayTriggerAriaProps.triggerProps,
+    {
+      elementType: elementType ?? "button",
+      ...overlayTriggerAriaProps.triggerProps,
+    },
     ref
   );
 
