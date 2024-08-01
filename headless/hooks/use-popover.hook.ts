@@ -1,8 +1,9 @@
-import { useRef } from "react";
+import { RefObject, useRef } from "react";
 import { OverlayState, useOverlayState } from "./use-overlay-state.hook";
 import {
   AriaPopoverProps,
   OverlayTriggerAria,
+  useButton,
   useOverlayTrigger as useOverlayTriggerAria,
   usePopover as usePopoverAria,
 } from "react-aria";
@@ -18,8 +19,14 @@ interface UsePopoverReturn<T extends Element> extends OverlayState {
   popoverProps: PopoverAriaWithoutCenter;
   overlayTriggerProps: OverlayTriggerAria;
   rootProps: RootProps<T>;
+  triggerProps: ReturnType<typeof useButton>["buttonProps"] & {
+    ref: RefObject<T>;
+  };
 }
 
+export function usePopover(
+  props: PopoverProps<HTMLButtonElement>
+): UsePopoverReturn<HTMLButtonElement>;
 export function usePopover(
   props: PopoverProps<HTMLDivElement>
 ): UsePopoverReturn<HTMLDivElement>;
@@ -58,7 +65,10 @@ export function usePopover<T extends Element>(
     triggerRef
   );
 
-  // overlayTriggerProps.triggerProps
+  const { buttonProps } = useButton(
+    overlayTriggerProps.triggerProps,
+    triggerRef
+  );
 
   const callbacks = {
     onClose: state.close,
@@ -66,10 +76,16 @@ export function usePopover<T extends Element>(
     onToggle: state.toggle,
   };
 
+  // control 시에만 Props를 사용하기 때문에 ref는 무조건 제너릭 타입으로 단언 가능
+  const triggerProps = {
+    ...buttonProps,
+    ref: triggerRef as RefObject<T>,
+  };
+
   const rootProps = {
     ...state,
     popoverRef,
-    triggerRef,
+    triggerRef: triggerRef as RefObject<T>,
     triggerButtonRef,
     ...popoverProps,
     ...overlayTriggerProps,
@@ -81,6 +97,7 @@ export function usePopover<T extends Element>(
     popoverProps,
     overlayTriggerProps,
     rootProps,
+    triggerProps,
   };
 }
 

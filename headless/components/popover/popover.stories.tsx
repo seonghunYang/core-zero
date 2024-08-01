@@ -65,7 +65,7 @@ export const StateControlWithoutHook: Story = {
 
 export const StateControl: Story = {
   render: () => {
-    const { rootProps } = usePopover({ defaultOpen: false });
+    const { rootProps, triggerProps } = usePopover({ defaultOpen: false });
 
     return (
       <>
@@ -138,13 +138,15 @@ export const LogicControl: Story = {
 export const TriggerRefControl: Story = {
   render: () => {
     const ref = useRef<HTMLDivElement>(null);
-    const { rootProps } = usePopover({ defaultOpen: false, triggerRef: ref });
+    const { rootProps, triggerProps } = usePopover({
+      defaultOpen: false,
+      triggerRef: ref,
+    });
 
-    rootProps.triggerRef
     return (
       <>
         <Popover {...rootProps}>
-          <div ref={ref}>click</div>
+          <div {...triggerProps}>click</div>
           {/* <Popover.Trigger as="div" ref={ref}>
             click
           </Popover.Trigger> */}

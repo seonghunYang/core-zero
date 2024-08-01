@@ -19,7 +19,7 @@ type PopoverAriaType = PopoverAriaWithoutCenter &
 
 export interface PopoverRoot<T extends Element> extends PopoverAriaType {
   popoverRef: React.RefObject<HTMLDivElement>;
-  triggerRef: React.RefObject<T> | React.RefObject<HTMLButtonElement>;
+  triggerRef: React.RefObject<T>;
   triggerButtonRef: React.RefObject<HTMLButtonElement>;
 }
 
