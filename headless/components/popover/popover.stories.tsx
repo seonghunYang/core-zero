@@ -106,34 +106,34 @@ export const LogicControl: Story = {
   },
 };
 
-export const LogicControl2: Story = {
-  render: () => {
-    const { getRootProps, close } = usePopover({
-      defaultOpen: false,
-      onClose: () => console.log("close"),
-    });
+// export const LogicControl2: Story = {
+//   render: () => {
+//     const { getRootProps, close } = usePopover({
+//       defaultOpen: false,
+//       onClose: () => console.log("close"),
+//     });
 
-    const handleClose = () => {
-      // console.log("close");
-      close();
-    };
+//     const handleClose = () => {
+//       // console.log("close");
+//       close();
+//     };
 
-    return (
-      <>
-        <Popover
-          {...getRootProps({
-            onClose: handleClose,
-          })}
-        >
-          <Popover.Trigger>click click</Popover.Trigger>
-          <Popover.Content>
-            <div>Popover content</div>
-          </Popover.Content>
-        </Popover>
-      </>
-    );
-  },
-};
+//     return (
+//       <>
+//         <Popover
+//           {...getRootProps({
+//             onClose: handleClose,
+//           })}
+//         >
+//           <Popover.Trigger>click click</Popover.Trigger>
+//           <Popover.Content>
+//             <div>Popover content</div>
+//           </Popover.Content>
+//         </Popover>
+//       </>
+//     );
+//   },
+// };
 
 export const TriggerRefControl: Story = {
   render: () => {
@@ -143,9 +143,10 @@ export const TriggerRefControl: Story = {
     return (
       <>
         <Popover {...rootProps}>
-          <Popover.Trigger as="div" ref={ref}>
+          <div ref={ref}>click</div>
+          {/* <Popover.Trigger as="div" ref={ref}>
             click
-          </Popover.Trigger>
+          </Popover.Trigger> */}
           <Popover.Content>
             <div>Popover content</div>
           </Popover.Content>
