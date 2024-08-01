@@ -20,6 +20,12 @@ interface UsePopoverReturn<T extends Element> extends OverlayState {
   rootProps: RootProps<T>;
 }
 
+export function usePopover(
+  props: PopoverProps<HTMLDivElement>
+): UsePopoverReturn<HTMLDivElement>;
+export function usePopover(
+  props: PopoverProps<Element>
+): UsePopoverReturn<Element>;
 export function usePopover<T extends Element>(
   props: PopoverProps<T>
 ): UsePopoverReturn<T> {
@@ -51,6 +57,8 @@ export function usePopover<T extends Element>(
     state,
     triggerRef
   );
+
+  // overlayTriggerProps.triggerProps
 
   const callbacks = {
     onClose: state.close,

@@ -140,6 +140,7 @@ export const TriggerRefControl: Story = {
     const ref = useRef<HTMLDivElement>(null);
     const { rootProps } = usePopover({ defaultOpen: false, triggerRef: ref });
 
+    rootProps.triggerRef
     return (
       <>
         <Popover {...rootProps}>
