@@ -41,8 +41,6 @@ export function PopoverRoot<T extends Element = HTMLButtonElement>({
   ...props
 }: PopoverRootProps<T>) {
   const { rootProps } = usePopover({
-    isOpen: props.isOpen,
-    defaultOpen: props.defaultOpen,
     ...props,
   });
 
@@ -59,6 +57,7 @@ export function PopoverRoot<T extends Element = HTMLButtonElement>({
 
 export const usePopoverContext = () => {
   let context = useContext(PopoverContext);
+  // 제거해야함
   if (context === null) {
     throw new Error("usePopoverContext must be used within a Popover");
   }
