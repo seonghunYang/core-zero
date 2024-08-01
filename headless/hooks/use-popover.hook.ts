@@ -31,8 +31,9 @@ export function usePopover(props: PopoverProps): UsePopoverReturn {
   // 하나씩 control 가능하게 변경, 고민인건 compound 아닐 때도 사용가능하도록 할 필요가 있음
   // 즉 usePopoverContext 에서 일단 에러문 제거 해야함
   // 그리고 이래도 동작하는지를 스토리 북 혹은 테스트로 확인해야함
+  const triggerButtonRef = useRef<HTMLButtonElement>(null);
   const popoverRef = props.popoverRef ?? useRef<HTMLDivElement>(null);
-  const triggerRef = props.triggerRef ?? useRef<HTMLButtonElement>(null);
+  const triggerRef = props.triggerRef ?? triggerButtonRef;
 
   const popoverProps = usePopoverAriaOverride(
     {
@@ -59,6 +60,7 @@ export function usePopover(props: PopoverProps): UsePopoverReturn {
     ...state,
     popoverRef,
     triggerRef,
+    triggerButtonRef,
     ...popoverProps,
     ...overlayTriggerProps,
     ...callbacks,

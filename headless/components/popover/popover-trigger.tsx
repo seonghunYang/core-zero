@@ -6,10 +6,10 @@ interface PopoverTriggerProps {
 }
 
 export function PopoverTrigger({ children }: PopoverTriggerProps) {
-  const { triggerRef, triggerProps } = usePopoverContext();
+  const { triggerButtonRef, triggerProps } = usePopoverContext();
 
   return (
-    <Button {...triggerProps} buttonRef={triggerRef}>
+    <Button {...triggerProps} buttonRef={triggerButtonRef}>
       {children}
     </Button>
   );
