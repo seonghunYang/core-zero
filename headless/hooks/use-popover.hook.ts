@@ -36,9 +36,8 @@ export function usePopover<T extends Element = HTMLButtonElement>(
   // 하나씩 control 가능하게 변경, 고민인건 compound 아닐 때도 사용가능하도록 할 필요가 있음
   // 즉 usePopoverContext 에서 일단 에러문 제거 해야함
   // 그리고 이래도 동작하는지를 스토리 북 혹은 테스트로 확인해야함
-  const triggerButtonRef = useRef<HTMLButtonElement>(null);
   const popoverRef = props.popoverRef ?? useRef<HTMLDivElement>(null);
-  const triggerRef = props.triggerRef ?? triggerButtonRef;
+  const triggerRef = props.triggerRef ?? useRef<T>(null);
 
   useEffect(() => {});
 
@@ -50,17 +49,6 @@ export function usePopover<T extends Element = HTMLButtonElement>(
     },
     state
   );
-
-  // const overlayTriggerProps = useOverlayTriggerAria(
-  //   { type: "dialog" },
-  //   state,
-  //   triggerRef
-  // );
-
-  // const { buttonProps } = useButton(
-  //   overlayTriggerProps.triggerProps,
-  //   triggerRef
-  // );
 
   const { overlayTriggerAriaProps, overlayTiggerProps } = useOverlayTrigger(
     { type: "dialog" },
@@ -77,14 +65,13 @@ export function usePopover<T extends Element = HTMLButtonElement>(
   // control 시에만 Props를 사용하기 때문에 ref는 무조건 제너릭 타입으로 단언 가능
   const triggerProps = {
     ...overlayTiggerProps,
-    ref: triggerRef as RefObject<T>,
+    ref: triggerRef,
   };
 
   const rootProps = {
     ...state,
     popoverRef,
-    triggerRef: triggerRef as RefObject<T>,
-    triggerButtonRef,
+    triggerRef,
     ...popoverProps,
     ...overlayTriggerAriaProps,
     ...callbacks,

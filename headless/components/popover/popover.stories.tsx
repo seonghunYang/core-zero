@@ -130,6 +130,28 @@ export const TriggerRefControl: Story = {
   },
 };
 
+export const TriggerRefControlInternal: Story = {
+  render: () => {
+    const { rootProps, triggerProps } = usePopover<HTMLDivElement>({
+      defaultOpen: false,
+    });
+
+    return (
+      <>
+        <Popover {...rootProps}>
+          <div {...triggerProps}>click</div>
+          {/* <Popover.Trigger as="div" ref={ref}>
+            click
+          </Popover.Trigger> */}
+          <Popover.Content>
+            <div>Popover content</div>
+          </Popover.Content>
+        </Popover>
+      </>
+    );
+  },
+};
+
 // export const LogicControl2: Story = {
 //   render: () => {
 //     const { getRootProps, close } = usePopover({
