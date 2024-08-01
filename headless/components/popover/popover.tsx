@@ -37,7 +37,7 @@ interface PopoverRootProps<T extends Element> extends PopoverProps<T> {
   children: React.ReactNode;
 }
 
-export function PopoverRoot<T extends Element>({
+export function PopoverRoot<T extends Element = HTMLButtonElement>({
   children,
   ...props
 }: PopoverRootProps<T>) {

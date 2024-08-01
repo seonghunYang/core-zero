@@ -1,4 +1,4 @@
-import { RefObject, useRef } from "react";
+import { RefObject, useEffect, useRef } from "react";
 import { OverlayState, useOverlayState } from "./use-overlay-state.hook";
 import {
   AriaPopoverProps,
@@ -24,16 +24,7 @@ interface UsePopoverReturn<T extends Element> extends OverlayState {
   };
 }
 
-export function usePopover(
-  props: PopoverProps<HTMLButtonElement>
-): UsePopoverReturn<HTMLButtonElement>;
-export function usePopover(
-  props: PopoverProps<HTMLDivElement>
-): UsePopoverReturn<HTMLDivElement>;
-export function usePopover(
-  props: PopoverProps<Element>
-): UsePopoverReturn<Element>;
-export function usePopover<T extends Element>(
+export function usePopover<T extends Element = HTMLButtonElement>(
   props: PopoverProps<T>
 ): UsePopoverReturn<T> {
   const state = useOverlayState({
@@ -49,6 +40,8 @@ export function usePopover<T extends Element>(
   const triggerButtonRef = useRef<HTMLButtonElement>(null);
   const popoverRef = props.popoverRef ?? useRef<HTMLDivElement>(null);
   const triggerRef = props.triggerRef ?? triggerButtonRef;
+
+  useEffect(() => {});
 
   const popoverProps = usePopoverAriaOverride(
     {

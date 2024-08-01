@@ -106,6 +106,30 @@ export const LogicControl: Story = {
   },
 };
 
+export const TriggerRefControl: Story = {
+  render: () => {
+    const ref = useRef<HTMLDivElement>(null);
+    const { rootProps, triggerProps } = usePopover({
+      defaultOpen: false,
+      triggerRef: ref,
+    });
+
+    return (
+      <>
+        <Popover {...rootProps}>
+          <div {...triggerProps}>click</div>
+          {/* <Popover.Trigger as="div" ref={ref}>
+            click
+          </Popover.Trigger> */}
+          <Popover.Content>
+            <div>Popover content</div>
+          </Popover.Content>
+        </Popover>
+      </>
+    );
+  },
+};
+
 // export const LogicControl2: Story = {
 //   render: () => {
 //     const { getRootProps, close } = usePopover({
@@ -134,27 +158,3 @@ export const LogicControl: Story = {
 //     );
 //   },
 // };
-
-export const TriggerRefControl: Story = {
-  render: () => {
-    const ref = useRef<HTMLDivElement>(null);
-    const { rootProps, triggerProps } = usePopover({
-      defaultOpen: false,
-      triggerRef: ref,
-    });
-
-    return (
-      <>
-        <Popover {...rootProps}>
-          <div {...triggerProps}>click</div>
-          {/* <Popover.Trigger as="div" ref={ref}>
-            click
-          </Popover.Trigger> */}
-          <Popover.Content>
-            <div>Popover content</div>
-          </Popover.Content>
-        </Popover>
-      </>
-    );
-  },
-};
