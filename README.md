@@ -207,4 +207,42 @@ function Popover() {
   );
 }
 ```
+### Without Compound Component
+
+```jsx
+function Popover() {
+  const { rootProps, triggerProps, popoverProps } = usePopover({
+    defaultOpen: false,
+  });
+
+  return (
+    <>
+      <div {...rootProps}>
+        <button {...triggerProps}>click</button >
+        <div {...popoverProps}>
+          <div>Popover content</div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+// 혹은
+function Popover() {
+  const { rootProps, triggerProps, popoverProps } = usePopover({
+    defaultOpen: false,
+  });
+
+  return (
+    <>
+      <div {...rootProps}>
+        <button {...triggerProps}>click</button >
+        <PopoverContent {...popoverProps}>
+          <div>Popover content</div>
+        </PopoverContent >
+      </div>
+    </>
+  );
+}
+```
 
