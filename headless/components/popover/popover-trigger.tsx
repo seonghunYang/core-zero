@@ -20,19 +20,26 @@ type PopoverTriggerComponent = <T extends React.ElementType = "button">(
 
 export const PopoverTrigger: PopoverTriggerComponent = forwardRef(
   function PopoverTrigger<T extends React.ElementType = "button">(
-    { children, ...props }: PopoverTriggerProps<T>,
+    { as, children, ...props }: PopoverTriggerProps<T>,
     ref: PolymorphicRef<T>
   ) {
     const { triggerRef, triggerProps } = usePopoverContext();
 
+    // const { overlayTriggerAriaProps, overlayTiggerProps }  = useOverlayTrigger
     // trigger를 poly로 만들면서 변경하기
     return (
-      <Button
+      <button
         {...triggerProps}
-        buttonRef={triggerRef as RefObject<HTMLButtonElement>}
+        ref={triggerProps.ref as RefObject<HTMLButtonElement>}
       >
         {children}
-      </Button>
+      </button>
+      // <Button
+      //   {...triggerProps}
+      //   buttonRef={triggerRef as RefObject<HTMLButtonElement>}
+      // >
+      //   {children}
+      // </Button>
     );
   }
 );

@@ -67,8 +67,9 @@ export function usePopover<T extends Element = HTMLButtonElement>(
     popoverRef,
     triggerRef,
     ...popoverAriaProps,
-    ...overlayTriggerAriaProps,
     ...callbacks,
+    triggerProps,
+    overlayProps: overlayTriggerAriaProps.overlayProps,
   };
 
   return {

@@ -1,6 +1,6 @@
-import type { AriaPopoverProps, PopoverAria } from "react-aria";
+import type { AriaPopoverProps, PopoverAria, useButton } from "react-aria";
 import { OverlayTriggerAria } from "react-aria";
-import { createContext, useContext } from "react";
+import { createContext, RefObject, useContext } from "react";
 import { usePopover } from "../../hooks/use-popover.hook";
 import { OverlayCallback } from "headless/hooks/use-overlay-state.hook";
 
@@ -14,12 +14,15 @@ export type PopoverAriaWithoutCenter = Omit<PopoverAria, "placement"> & {
 };
 
 type PopoverAriaType = PopoverAriaWithoutCenter &
-  OverlayTriggerAria &
-  PopoverState;
+  PopoverState &
+  Pick<OverlayTriggerAria, "overlayProps">;
 
 export interface PopoverRoot<T extends Element> extends PopoverAriaType {
   popoverRef: React.RefObject<HTMLDivElement>;
   triggerRef: React.RefObject<T>;
+  triggerProps: ReturnType<typeof useButton>["buttonProps"] & {
+    ref: RefObject<T>;
+  };
 }
 
 type PopoverContextValue<T extends Element> = PopoverRoot<T>;
