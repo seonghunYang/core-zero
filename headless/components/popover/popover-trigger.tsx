@@ -23,14 +23,9 @@ export const PopoverTrigger: PopoverTriggerComponent = forwardRef(
   ) {
     const { triggerProps } = usePopoverContext();
 
+    const Element = as || "button";
     // const { overlayTriggerAriaProps, overlayTiggerProps }  = useOverlayTrigger
     // trigger를 poly로 만들면서 변경하기
-    return (
-      <button
-        {...triggerProps}
-        {...props}
-        ref={triggerProps.ref as RefObject<HTMLButtonElement>}
-      />
-    );
+    return <Element {...triggerProps} {...props} ref={triggerProps.ref} />;
   }
 );
