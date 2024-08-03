@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { Popover } from ".";
+import { Popover, PopoverContent, PopoverTrigger } from ".";
 import { usePopover } from "../../hooks/use-popover.hook";
 import { useRef, useState } from "react";
 
@@ -155,6 +155,45 @@ export const CustomComponentWithRef: Story = {
             <div>Popover content</div>
           </Popover.Content>
         </Popover>
+      </>
+    );
+  },
+};
+
+export const PolymorphicComponent: Story = {
+  render: () => {
+    const { rootProps } = usePopover<HTMLDivElement>({
+      defaultOpen: false,
+    });
+
+    return (
+      <>
+        <Popover {...rootProps}>
+          <Popover.Trigger as="div">click</Popover.Trigger>
+          <Popover.Content>
+            <div>Popover content</div>
+          </Popover.Content>
+        </Popover>
+      </>
+    );
+  },
+};
+
+// 궁극적인 완성, 이게 동작해야지 완전히 커스텀 가능한 것
+export const WithoutCompoundComponent: Story = {
+  render: () => {
+    const { triggerProps, popoverProps } = usePopover<HTMLDivElement>({
+      defaultOpen: false,
+    });
+
+    return (
+      <>
+        <div>
+          <PopoverTrigger as='div' {...triggerProps}>click</PopoverTrigger>
+          <PopoverContent {...popoverProps}>
+            <div>Popover content</div>
+          </PopoverContent>
+        </div>
       </>
     );
   },
