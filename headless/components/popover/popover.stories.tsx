@@ -3,7 +3,6 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Popover, PopoverContent, PopoverTrigger } from ".";
 import { usePopover } from "../../hooks/use-popover.hook";
 import { useRef, useState } from "react";
-import * as Example from "./stories/example";
 
 const meta = {
   title: "Headless/Components/Popover",
