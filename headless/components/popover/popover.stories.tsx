@@ -15,19 +15,6 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const render = () => {
-  return (
-    <>
-      <Popover>
-        <Popover.Trigger>click click</Popover.Trigger>
-        <Popover.Content>
-          <div>Popover content</div>
-        </Popover.Content>
-      </Popover>
-    </>
-  );
-};
-
 export const Simeple: Story = {
   render: () => {
     return (
@@ -162,8 +149,29 @@ export const CustomComponentWithRef: Story = {
 
 export const PolymorphicComponent: Story = {
   render: () => {
-    const { rootProps } = usePopover<HTMLDivElement>({
+    const { rootProps } = usePopover({
       defaultOpen: false,
+    });
+
+    return (
+      <>
+        <Popover {...rootProps}>
+          <Popover.Trigger as="div">click</Popover.Trigger>
+          <Popover.Content>
+            <div>Popover content</div>
+          </Popover.Content>
+        </Popover>
+      </>
+    );
+  },
+};
+
+export const PolymorphicComponentWithRef: Story = {
+  render: () => {
+    const ref = useRef<HTMLDivElement>(null);
+    const { rootProps } = usePopover({
+      defaultOpen: false,
+      triggerRef: ref,
     });
 
     return (
@@ -182,14 +190,16 @@ export const PolymorphicComponent: Story = {
 // 궁극적인 완성, 이게 동작해야지 완전히 커스텀 가능한 것
 export const WithoutCompoundComponent: Story = {
   render: () => {
-    const { triggerProps, popoverProps } = usePopover<HTMLDivElement>({
+    const { triggerProps } = usePopover<HTMLDivElement>({
       defaultOpen: false,
     });
 
     return (
       <>
         <div>
-          <PopoverTrigger as='div' {...triggerProps}>click</PopoverTrigger>
+          <PopoverTrigger as="div" {...triggerProps}>
+            click
+          </PopoverTrigger>
           <PopoverContent {...popoverProps}>
             <div>Popover content</div>
           </PopoverContent>
