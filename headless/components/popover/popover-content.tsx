@@ -8,33 +8,28 @@ interface PopoverContentProps {
 }
 
 export function PopoverContent({ children }: PopoverContentProps) {
-  const {
-    popoverRef,
-    popoverProps,
-    underlayProps,
-    arrowProps,
-    placement,
-    isOpen,
-    overlayProps,
-    onClose,
-  } = usePopoverContext();
+  const { isOpen, popoverContentProps, onClose } = usePopoverContext();
 
   return (
     <>
       {isOpen && (
         <Overlay>
-          <div {...underlayProps} className="underlay" />
-          <div {...popoverProps} ref={popoverRef} className="popover">
+          <div {...popoverContentProps.underlayProps} className="underlay" />
+          <div
+            {...popoverContentProps.popoverProps}
+            ref={popoverRef}
+            className="popover"
+          >
             <svg
-              {...arrowProps}
+              {...popoverContentProps.arrowProps}
               className="arrow"
-              data-placement={placement}
+              data-placement={popoverContentProps.placement}
               viewBox="0 0 12 12"
             >
               <path d="M0 0 L6 6 L12 0" />
             </svg>
             <DismissButton onDismiss={onClose} />
-            <Dialog {...overlayProps}>{children}</Dialog>
+            <Dialog {...popoverContentProps.overlayProps}>{children}</Dialog>
             <DismissButton onDismiss={onClose} />
           </div>
         </Overlay>

@@ -13,16 +13,15 @@ export type PopoverAriaWithoutCenter = Omit<PopoverAria, "placement"> & {
   placement: "top" | "right" | "bottom" | "left";
 };
 
-type PopoverAriaType = PopoverAriaWithoutCenter &
-  PopoverState &
-  Pick<OverlayTriggerAria, "overlayProps">;
+export type PopoverContentProps = PopoverAriaWithoutCenter & Pick<OverlayTriggerAria, "overlayProps">;
 
-export interface PopoverRoot<T extends Element> extends PopoverAriaType {
+export interface PopoverRoot<T extends Element> extends PopoverState {
   popoverRef: React.RefObject<HTMLDivElement>;
   triggerRef: React.RefObject<T>;
   triggerProps: ReturnType<typeof useButton>["buttonProps"] & {
     ref: RefObject<T>;
   };
+  popoverContentProps: PopoverContentProps;
 }
 
 type PopoverContextValue<T extends Element> = PopoverRoot<T>;

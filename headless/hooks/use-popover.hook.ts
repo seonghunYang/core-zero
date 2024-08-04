@@ -7,6 +7,7 @@ import {
 } from "react-aria";
 import {
   PopoverAriaWithoutCenter,
+  PopoverContentProps,
   PopoverProps,
   PopoverRoot,
 } from "../components/popover/popover";
@@ -17,6 +18,7 @@ interface UsePopoverReturn<T extends Element> extends OverlayState {
   triggerProps: ReturnType<typeof useButton>["buttonProps"] & {
     ref: RefObject<T>;
   };
+  popoverContentProps: PopoverContentProps;
 }
 
 export function usePopover<T extends Element = HTMLButtonElement>(
@@ -56,10 +58,15 @@ export function usePopover<T extends Element = HTMLButtonElement>(
     onToggle: state.toggle,
   };
 
-  // control 시에만 Props를 사용하기 때문에 ref는 무조건 제너릭 타입으로 단언 가능
   const triggerProps = {
     ...overlayTiggerProps,
     ref: triggerRef,
+  };
+
+  const popoverContentProps = {
+    ...popoverAriaProps,
+    ref: popoverRef,
+    overlayProps: overlayTriggerAriaProps.overlayProps,
   };
 
   const rootProps = {
@@ -70,12 +77,14 @@ export function usePopover<T extends Element = HTMLButtonElement>(
     ...callbacks,
     triggerProps,
     overlayProps: overlayTriggerAriaProps.overlayProps,
+    popoverContentProps,
   };
 
   return {
     ...state,
     rootProps,
     triggerProps,
+    popoverContentProps,
   };
 }
 
