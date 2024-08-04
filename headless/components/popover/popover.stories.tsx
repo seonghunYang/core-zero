@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { Popover, PopoverContent, PopoverTrigger } from "..";
-import { usePopover } from "../../../hooks/use-popover.hook";
+import { Popover, PopoverContent, PopoverTrigger } from ".";
+import { usePopover } from "../../hooks/use-popover.hook";
 import { useRef, useState } from "react";
-import * as Example from "./example";
+import * as Example from "./stories/example";
 
 const meta = {
   title: "Headless/Components/Popover",
@@ -15,8 +15,15 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Simeple: Story = {
-  render: () => <Example.Simple />,
+export const Simple: Story = {
+  render: () => (
+    <Popover>
+      <Popover.Trigger>click</Popover.Trigger>
+      <Popover.Content>
+        <div>Popover content</div>
+      </Popover.Content>
+    </Popover>
+  ),
 };
 
 export const DefaultValue: Story = {

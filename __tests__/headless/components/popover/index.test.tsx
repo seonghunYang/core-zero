@@ -1,6 +1,6 @@
 import { PopoverTestTemplate } from "./popover-test-template";
-import * as Examples from "headless/components/popover/stories/example";
+import { Simple } from "headless/components/popover/popover.stories";
 
 const tempalate = PopoverTestTemplate();
 
-tempalate(<Examples.Simple />);
+tempalate(Simple);
