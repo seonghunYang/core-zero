@@ -16,7 +16,7 @@ export type PopoverAriaWithoutCenter = Omit<PopoverAria, "placement"> & {
 export type PopoverContentProps<C> = PopoverAriaWithoutCenter &
   Pick<OverlayTriggerAria, "overlayProps"> & {
     ref: RefObject<C>;
-  };
+  } & PopoverState;
 
 export interface PopoverRoot<T extends Element, C extends Element>
   extends PopoverState {

@@ -66,6 +66,8 @@ export function usePopover<
   };
 
   const popoverContentProps = {
+    ...state,
+    ...callbacks,
     ...popoverAriaProps,
     ref: popoverRef,
     overlayProps: overlayTriggerAriaProps.overlayProps,
