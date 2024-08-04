@@ -190,7 +190,7 @@ export const PolymorphicComponentWithRef: Story = {
 // 궁극적인 완성, 이게 동작해야지 완전히 커스텀 가능한 것
 export const WithoutCompoundComponent: Story = {
   render: () => {
-    const { triggerProps } = usePopover<HTMLDivElement>({
+    const { triggerProps, popoverContentProps } = usePopover<HTMLDivElement>({
       defaultOpen: false,
     });
 
@@ -200,7 +200,7 @@ export const WithoutCompoundComponent: Story = {
           <PopoverTrigger as="div" {...triggerProps}>
             click
           </PopoverTrigger>
-          <PopoverContent {...popoverProps}>
+          <PopoverContent {...popoverContentProps}>
             <div>Popover content</div>
           </PopoverContent>
         </div>
