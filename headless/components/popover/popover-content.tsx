@@ -1,54 +1,62 @@
 import { DismissButton, Overlay } from "react-aria";
-import { usePopoverContext } from "./popover";
+import { PopoverContentProps, usePopoverContext } from "./popover";
 import React, { forwardRef } from "react";
 import { Dialog } from "../dialog/dialog";
 import {
   PolymorphicComponentPropsWithRef,
   PolymorphicRef,
 } from "headless/types/polymorphic";
+import { mergeRef } from "headless/utils";
 
 type _PopoverContentProps = {
   children: React.ReactNode;
 };
 
-type PopoverContentProps<C extends React.ElementType> =
-  PolymorphicComponentPropsWithRef<C, _PopoverContentProps>;
+type polymorphicPopoverContentProps<C extends React.ElementType> =
+  PolymorphicComponentPropsWithRef<C, _PopoverContentProps> &
+    Partial<PopoverContentProps>;
 
 type PopoverContentComponent = <C extends React.ElementType = "div">(
-  props: PopoverContentProps<C>
+  props: polymorphicPopoverContentProps<C>
 ) => React.ReactNode;
 
 export const PopoverContent: PopoverContentComponent = forwardRef(
   function PopoverContent<C extends React.ElementType = "div">(
-    { as, children, ...props }: PopoverContentProps<C>,
+    { as, children, ...props }: polymorphicPopoverContentProps<C>,
     ref: PolymorphicRef<C>
   ) {
     const Element = as || "div";
 
-    const { popoverContentProps } = usePopoverContext();
+    const popoverContext = usePopoverContext();
+
+    const isCompound = popoverContext !== null;
+
+    const mergedProps = isCompound
+      ? { ...popoverContext?.popoverContentProps, ...props }
+      : props;
 
     return (
       <>
-        {popoverContentProps.isOpen && (
+        {mergedProps.isOpen && (
           <Overlay>
-            <div {...popoverContentProps.underlayProps} className="underlay" />
+            <div {...mergedProps.underlayProps} className="underlay" />
             <Element
-              {...popoverContentProps.popoverProps}
+              {...mergedProps.popoverProps}
               {...props}
-              ref={popoverContentProps.ref}
+              ref={mergeRef(ref, popoverContext?.popoverRef)}
               className="popover"
             >
               <svg
-                {...popoverContentProps.arrowProps}
+                {...mergedProps.arrowProps}
                 className="arrow"
-                data-placement={popoverContentProps.placement}
+                data-placement={mergedProps.placement}
                 viewBox="0 0 12 12"
               >
                 <path d="M0 0 L6 6 L12 0" />
               </svg>
-              <DismissButton onDismiss={popoverContentProps.onClose} />
-              <Dialog {...popoverContentProps.overlayProps}>{children}</Dialog>
-              <DismissButton onDismiss={popoverContentProps.onClose} />
+              <DismissButton onDismiss={mergedProps.onClose} />
+              <Dialog {...mergedProps.overlayProps}>{children}</Dialog>
+              <DismissButton onDismiss={mergedProps.onClose} />
             </Element>
           </Overlay>
         )}

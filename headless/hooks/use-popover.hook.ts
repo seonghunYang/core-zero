@@ -1,13 +1,8 @@
-import { RefObject, useEffect, useRef } from "react";
+import { useRef } from "react";
 import { OverlayState, useOverlayState } from "./use-overlay-state.hook";
-import {
-  AriaPopoverProps,
-  useButton,
-  usePopover as usePopoverAria,
-} from "react-aria";
+import { AriaPopoverProps, usePopover as usePopoverAria } from "react-aria";
 import {
   PopoverAriaWithoutCenter,
-  PopoverContentProps,
   PopoverContentPropsWithRef,
   PopoverProps,
   PopoverRoot,
