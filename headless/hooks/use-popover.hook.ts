@@ -8,18 +8,18 @@ import {
 import {
   PopoverAriaWithoutCenter,
   PopoverContentProps,
+  PopoverContentPropsWithRef,
   PopoverProps,
   PopoverRoot,
+  PopoverTriggerPropsWithRef,
 } from "../components/popover/popover";
 import { useOverlayTrigger } from "./use-overlay-trigger.hook";
 
 interface UsePopoverReturn<T extends Element, C extends Element>
   extends OverlayState {
   rootProps: PopoverRoot<T, C>;
-  triggerProps: ReturnType<typeof useButton>["buttonProps"] & {
-    ref: RefObject<T>;
-  };
-  popoverContentProps: PopoverContentProps<C>;
+  triggerProps: PopoverTriggerPropsWithRef<T>;
+  popoverContentProps: PopoverContentPropsWithRef<C>;
 }
 
 export function usePopover<

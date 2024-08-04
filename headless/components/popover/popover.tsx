@@ -13,19 +13,28 @@ export type PopoverAriaWithoutCenter = Omit<PopoverAria, "placement"> & {
   placement: "top" | "right" | "bottom" | "left";
 };
 
-export type PopoverContentProps<C> = PopoverAriaWithoutCenter &
-  Pick<OverlayTriggerAria, "overlayProps"> & {
+export type PopoverTriggerProps = ReturnType<typeof useButton>["buttonProps"];
+
+export type PopoverTriggerPropsWithRef<T extends Element> =
+  PopoverTriggerProps & {
+    ref: RefObject<T>;
+  };
+
+export type PopoverContentProps = PopoverAriaWithoutCenter &
+  Pick<OverlayTriggerAria, "overlayProps"> &
+  PopoverState;
+
+export type PopoverContentPropsWithRef<C extends Element> =
+  PopoverContentProps & {
     ref: RefObject<C>;
-  } & PopoverState;
+  };
 
 export interface PopoverRoot<T extends Element, C extends Element>
   extends PopoverState {
   popoverRef: React.RefObject<C>;
   triggerRef: React.RefObject<T>;
-  triggerProps: ReturnType<typeof useButton>["buttonProps"] & {
-    ref: RefObject<T>;
-  };
-  popoverContentProps: PopoverContentProps<C>;
+  triggerProps: PopoverTriggerPropsWithRef<T>;
+  popoverContentProps: PopoverContentPropsWithRef<C>;
 }
 
 type PopoverContextValue<T extends Element, C extends Element> = PopoverRoot<
@@ -71,8 +80,8 @@ export function PopoverRoot<
 export const usePopoverContext = () => {
   let context = useContext(PopoverContext);
   // 제거해야함
-  if (context === null) {
-    throw new Error("usePopoverContext must be used within a Popover");
-  }
+  // if (context === null) {
+
+  // }
   return context;
 };
