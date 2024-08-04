@@ -17,7 +17,7 @@ export function PopoverContent({ children }: PopoverContentProps) {
           <div {...popoverContentProps.underlayProps} className="underlay" />
           <div
             {...popoverContentProps.popoverProps}
-            ref={popoverRef}
+            ref={popoverContentProps.ref}
             className="popover"
           >
             <svg

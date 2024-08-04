@@ -13,35 +13,46 @@ export type PopoverAriaWithoutCenter = Omit<PopoverAria, "placement"> & {
   placement: "top" | "right" | "bottom" | "left";
 };
 
-export type PopoverContentProps = PopoverAriaWithoutCenter & Pick<OverlayTriggerAria, "overlayProps">;
+export type PopoverContentProps<C> = PopoverAriaWithoutCenter &
+  Pick<OverlayTriggerAria, "overlayProps"> & {
+    ref: RefObject<C>;
+  };
 
-export interface PopoverRoot<T extends Element> extends PopoverState {
-  popoverRef: React.RefObject<HTMLDivElement>;
+export interface PopoverRoot<T extends Element, C extends Element>
+  extends PopoverState {
+  popoverRef: React.RefObject<C>;
   triggerRef: React.RefObject<T>;
   triggerProps: ReturnType<typeof useButton>["buttonProps"] & {
     ref: RefObject<T>;
   };
-  popoverContentProps: PopoverContentProps;
+  popoverContentProps: PopoverContentProps<C>;
 }
 
-type PopoverContextValue<T extends Element> = PopoverRoot<T>;
+type PopoverContextValue<T extends Element, C extends Element> = PopoverRoot<
+  T,
+  C
+>;
 
-const PopoverContext = createContext<PopoverContextValue<Element> | null>(null);
+const PopoverContext = createContext<PopoverContextValue<
+  Element,
+  Element
+> | null>(null);
 
-export type PopoverProps<T extends Element> = {
+export type PopoverProps<T extends Element, C extends Element> = {
   defaultOpen?: boolean;
   onChange?: (isOpen: boolean) => void;
 } & Omit<AriaPopoverProps, "popoverRef" | "triggerRef" | "placement"> &
-  Partial<PopoverRoot<T>>;
+  Partial<PopoverRoot<T, C>>;
 
-interface PopoverRootProps<T extends Element> extends PopoverProps<T> {
+interface PopoverRootProps<T extends Element, C extends Element>
+  extends PopoverProps<T, C> {
   children: React.ReactNode;
 }
 
-export function PopoverRoot<T extends Element = HTMLButtonElement>({
-  children,
-  ...props
-}: PopoverRootProps<T>) {
+export function PopoverRoot<
+  T extends Element = HTMLButtonElement,
+  C extends Element = HTMLDivElement,
+>({ children, ...props }: PopoverRootProps<T, C>) {
   const { rootProps } = usePopover({
     ...props,
   });

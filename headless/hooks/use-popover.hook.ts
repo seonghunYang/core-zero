@@ -13,17 +13,19 @@ import {
 } from "../components/popover/popover";
 import { useOverlayTrigger } from "./use-overlay-trigger.hook";
 
-interface UsePopoverReturn<T extends Element> extends OverlayState {
-  rootProps: PopoverRoot<T>;
+interface UsePopoverReturn<T extends Element, C extends Element>
+  extends OverlayState {
+  rootProps: PopoverRoot<T, C>;
   triggerProps: ReturnType<typeof useButton>["buttonProps"] & {
     ref: RefObject<T>;
   };
-  popoverContentProps: PopoverContentProps;
+  popoverContentProps: PopoverContentProps<C>;
 }
 
-export function usePopover<T extends Element = HTMLButtonElement>(
-  props: PopoverProps<T>
-): UsePopoverReturn<T> {
+export function usePopover<
+  T extends Element = HTMLButtonElement,
+  C extends Element = HTMLDivElement,
+>(props: PopoverProps<T, C>): UsePopoverReturn<T, C> {
   const state = useOverlayState({
     isOpen: props.isOpen,
     defaultOpen: props.defaultOpen ?? false,
@@ -34,7 +36,7 @@ export function usePopover<T extends Element = HTMLButtonElement>(
   // 하나씩 control 가능하게 변경, 고민인건 compound 아닐 때도 사용가능하도록 할 필요가 있음
   // 즉 usePopoverContext 에서 일단 에러문 제거 해야함
   // 그리고 이래도 동작하는지를 스토리 북 혹은 테스트로 확인해야함
-  const popoverRef = props.popoverRef ?? useRef<HTMLDivElement>(null);
+  const popoverRef = props.popoverRef ?? useRef<C>(null);
   const triggerRef = props.triggerRef ?? useRef<T>(null);
 
   const popoverAriaProps = usePopoverAriaOverride(
