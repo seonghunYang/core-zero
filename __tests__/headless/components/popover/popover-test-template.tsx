@@ -38,7 +38,7 @@ export function PopoverTestTemplate() {
 
         expect(screen.getByText("Popover content")).toBeInTheDocument();
 
-        // await user.click(document.body);
+        await user.click(document.body);
 
         expect(screen.queryByText("Popover content")).not.toBeInTheDocument();
       });
