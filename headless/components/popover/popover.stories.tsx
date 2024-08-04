@@ -208,3 +208,28 @@ export const WithoutCompoundComponent: Story = {
     );
   },
 };
+
+export const WithoutCompoundComponentWithCustomRef: Story = {
+  render: () => {
+    const triggerRef = useRef<HTMLDivElement>(null);
+    const popoverRef = useRef<HTMLButtonElement>(null);
+    const { triggerProps, popoverContentProps } = usePopover({
+      defaultOpen: false,
+      triggerRef,
+      popoverRef,
+    });
+
+    return (
+      <>
+        <div>
+          <PopoverTrigger as="div" {...triggerProps}>
+            click
+          </PopoverTrigger>
+          <PopoverContent as="button" {...popoverContentProps}>
+            <div>Popover content</div>
+          </PopoverContent>
+        </div>
+      </>
+    );
+  },
+};
