@@ -3,8 +3,12 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
 
+type TestStory = StoryObj & {
+  name: string;
+};
+
 export function PopoverTestTemplate() {
-  return (story: StoryObj) => {
+  return (story: TestStory) => {
     const Component = story.render;
 
     if (!Component) {

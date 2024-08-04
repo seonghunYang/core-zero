@@ -25,19 +25,6 @@ export const Simple: Story = {
   ),
 };
 
-export const DefaultValue: Story = {
-  render: () => {
-    return (
-      <>
-        <Popover defaultOpen={true}>
-          <Popover.Trigger>click click</Popover.Trigger>
-          <Popover.Content>This is the content of the popover.</Popover.Content>
-        </Popover>
-      </>
-    );
-  },
-};
-
 export const SimpleControl: Story = {
   render: () => {
     const [isOpen, setOpen] = useState(false);
@@ -48,8 +35,8 @@ export const SimpleControl: Story = {
     return (
       <>
         <Popover isOpen={isOpen} onChange={handleChange}>
-          <Popover.Trigger>click click</Popover.Trigger>
-          <Popover.Content>This is the content of the popover.</Popover.Content>
+          <Popover.Trigger>click</Popover.Trigger>
+          <Popover.Content>Popover content</Popover.Content>
         </Popover>
       </>
     );
@@ -63,7 +50,7 @@ export const ControlWithHook: Story = {
     return (
       <>
         <Popover {...rootProps}>
-          <Popover.Trigger>click click</Popover.Trigger>
+          <Popover.Trigger>click</Popover.Trigger>
           <Popover.Content>
             <div>Popover content</div>
           </Popover.Content>
@@ -88,7 +75,7 @@ export const CustomLogic: Story = {
     return (
       <>
         <Popover {...rootProps} onClose={handleClose}>
-          <Popover.Trigger>click click</Popover.Trigger>
+          <Popover.Trigger>click</Popover.Trigger>
           <Popover.Content>
             <button onClick={handleClose}>hi</button>
             <div>Popover content</div>
