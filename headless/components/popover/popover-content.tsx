@@ -23,6 +23,8 @@ export const PopoverContent: PopoverContentComponent = forwardRef(
     { as, children, ...props }: PopoverContentProps<C>,
     ref: PolymorphicRef<C>
   ) {
+    const Element = as || "div";
+
     const { popoverContentProps } = usePopoverContext();
 
     return (
@@ -30,8 +32,9 @@ export const PopoverContent: PopoverContentComponent = forwardRef(
         {popoverContentProps.isOpen && (
           <Overlay>
             <div {...popoverContentProps.underlayProps} className="underlay" />
-            <div
+            <Element
               {...popoverContentProps.popoverProps}
+              {...props}
               ref={popoverContentProps.ref}
               className="popover"
             >
@@ -46,7 +49,7 @@ export const PopoverContent: PopoverContentComponent = forwardRef(
               <DismissButton onDismiss={popoverContentProps.onClose} />
               <Dialog {...popoverContentProps.overlayProps}>{children}</Dialog>
               <DismissButton onDismiss={popoverContentProps.onClose} />
-            </div>
+            </Element>
           </Overlay>
         )}
       </>
