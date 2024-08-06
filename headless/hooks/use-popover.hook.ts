@@ -61,7 +61,7 @@ export function usePopover<
   };
 
   const popoverContentProps = {
-    ...state,
+    isOpen: state.isOpen,
     ...callbacks,
     ...popoverAriaProps,
     ref: popoverRef,

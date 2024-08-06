@@ -22,7 +22,7 @@ export type PopoverTriggerPropsWithRef<T extends Element> =
 
 export type PopoverContentProps = PopoverAriaWithoutCenter &
   Pick<OverlayTriggerAria, "overlayProps"> &
-  PopoverState;
+  Pick<PopoverState, "isOpen">;
 
 export type PopoverContentPropsWithRef<C extends Element> =
   PopoverContentProps & {
