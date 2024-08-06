@@ -24,4 +24,4 @@ template(TestStories.PolymorphicComponentWithRef);
 
 template(TestStories.WithoutCompoundComponent);
 
-// template(TestStories.WithoutCompoundComponentWithCustomRef);
+template(TestStories.WithoutCompoundComponentWithCustomRef);

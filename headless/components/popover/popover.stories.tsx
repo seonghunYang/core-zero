@@ -194,7 +194,7 @@ export const WithoutCompoundComponent: Story = {
 export const WithoutCompoundComponentWithCustomRef: Story = {
   render: () => {
     const triggerRef = useRef<HTMLDivElement>(null);
-    const popoverRef = useRef<HTMLButtonElement>(null);
+    const popoverRef = useRef<HTMLSpanElement>(null);
     const { triggerProps, popoverContentProps } = usePopover({
       defaultOpen: false,
       triggerRef,
@@ -207,7 +207,7 @@ export const WithoutCompoundComponentWithCustomRef: Story = {
           <PopoverTrigger as="div" {...triggerProps}>
             click
           </PopoverTrigger>
-          <PopoverContent as="button" {...popoverContentProps}>
+          <PopoverContent as="span" {...popoverContentProps}>
             <div>Popover content</div>
           </PopoverContent>
         </div>
