@@ -1,11 +1,7 @@
-import { StoryObj } from "@storybook/react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { TestStory } from "__tests__/utils/story";
 import React from "react";
-
-type TestStory = StoryObj & {
-  name: string;
-};
 
 export function PopoverTestTemplate() {
   return (story: TestStory) => {
