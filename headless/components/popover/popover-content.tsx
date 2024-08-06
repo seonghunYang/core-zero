@@ -25,12 +25,9 @@ export const PopoverContent: PopoverContentComponent = forwardRef(
     { as, children, ...props }: polymorphicPopoverContentProps<C>,
     ref: PolymorphicRef<C>
   ) {
-    const Element = as || "div";
-
     const popoverContext = usePopoverContext();
 
     const isCompound = popoverContext !== null;
-
     const mergedProps = isCompound
       ? { ...popoverContext?.popoverContentProps, ...props }
       : props;
@@ -47,6 +44,8 @@ export const PopoverContent: PopoverContentComponent = forwardRef(
       onToggle,
       ...restProps
     } = mergedProps;
+
+    const Element = as || "div";
 
     return (
       <>
