@@ -35,28 +35,41 @@ export const PopoverContent: PopoverContentComponent = forwardRef(
       ? { ...popoverContext?.popoverContentProps, ...props }
       : props;
 
+    const {
+      isOpen,
+      underlayProps,
+      popoverProps,
+      arrowProps,
+      overlayProps,
+      onClose,
+      placement,
+      onOpen,
+      onToggle,
+      ...restProps
+    } = mergedProps;
+
     return (
       <>
-        {mergedProps.isOpen && (
+        {isOpen && (
           <Overlay>
-            <div {...mergedProps.underlayProps} className="underlay" />
+            <div {...underlayProps} className="underlay" />
             <Element
-              {...mergedProps.popoverProps}
-              {...props}
+              {...popoverProps}
+              {...restProps}
               ref={mergeRef(ref, popoverContext?.popoverRef)}
               className="popover"
             >
               <svg
-                {...mergedProps.arrowProps}
+                {...arrowProps}
                 className="arrow"
-                data-placement={mergedProps.placement}
+                data-placement={placement}
                 viewBox="0 0 12 12"
               >
                 <path d="M0 0 L6 6 L12 0" />
               </svg>
-              <DismissButton onDismiss={mergedProps.onClose} />
-              <Dialog {...mergedProps.overlayProps}>{children}</Dialog>
-              <DismissButton onDismiss={mergedProps.onClose} />
+              <DismissButton onDismiss={onClose} />
+              <Dialog {...overlayProps}>{children}</Dialog>
+              <DismissButton onDismiss={onClose} />
             </Element>
           </Overlay>
         )}
