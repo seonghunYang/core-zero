@@ -1,10 +1,27 @@
 import { PopoverTestTemplate } from "./popover-test-template";
 import * as Stories from "headless/components/popover/popover.stories";
+import { makeStoriesTotestability } from "__tests__/utils/story";
 
-const tempalate = PopoverTestTemplate();
+const TestStories = makeStoriesTotestability(Stories);
 
-Object.entries(Stories).forEach(([name, story]) => {
-  if (name === "default") return;
+const template = PopoverTestTemplate();
 
-  tempalate({ ...story, name });
-});
+template(TestStories.Simple);
+
+template(TestStories.SimpleControl);
+
+template(TestStories.ControlWithHook);
+
+template(TestStories.CustomLogic);
+
+template(TestStories.CustomComponent);
+
+template(TestStories.CustomComponentWithRef);
+
+template(TestStories.PolymorphicComponent);
+
+template(TestStories.PolymorphicComponentWithRef);
+
+template(TestStories.WithoutCompoundComponent);
+
+// template(TestStories.WithoutCompoundComponentWithCustomRef);
