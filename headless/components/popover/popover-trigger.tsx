@@ -5,8 +5,9 @@ import {
   PolymorphicRef,
 } from "headless/types/polymorphic";
 import type { PopoverTriggerProps } from "./popover";
-import { mergeProps, mergeRef } from "headless/utils/merge";
+import { mergeRef } from "headless/utils/merge";
 import { InteractionState } from "headless/types/interactions";
+import { convertDataPropsToState } from "headless/utils/interactions";
 
 type _PopoverTriggerProps = {
   children: React.ReactNode | ((props: InteractionState) => React.ReactNode);
@@ -35,10 +36,10 @@ export const PopoverTrigger: PopoverTriggerComponent = forwardRef(
 
     const Element = as || "button";
 
-    // mergedProps.data-fo
+    const interactionState = convertDataPropsToState(mergedProps);
     return (
       <Element {...mergedProps} ref={mergeRef(ref, popoverContext?.triggerRef)}>
-        {typeof children === "function" ? children() : children}
+        {typeof children === "function" ? children(interactionState) : children}
       </Element>
     );
   }
