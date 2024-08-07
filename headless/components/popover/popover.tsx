@@ -3,6 +3,7 @@ import { OverlayTriggerAria } from "react-aria";
 import { createContext, RefObject, useContext } from "react";
 import { usePopover } from "../../hooks/use-popover.hook";
 import { OverlayCallback } from "headless/hooks/use-overlay-state.hook";
+import { InteractionDataProps } from "headless/types/interactions";
 
 export interface PopoverState extends OverlayCallback {
   isOpen: boolean;
@@ -21,7 +22,7 @@ export type PopoverTriggerProps = Omit<
 export type PopoverTriggerPropsWithRef<T extends Element> =
   PopoverTriggerProps & {
     ref: RefObject<T>;
-  };
+  } & InteractionDataProps;
 
 export type PopoverContentProps = PopoverAriaWithoutCenter &
   Pick<OverlayTriggerAria, "overlayProps"> &
@@ -82,9 +83,6 @@ export function PopoverRoot<
 
 export const usePopoverContext = () => {
   let context = useContext(PopoverContext);
-  // 제거해야함
-  // if (context === null) {
 
-  // }
   return context;
 };
