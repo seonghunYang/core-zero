@@ -8,9 +8,7 @@ import type { PopoverTriggerProps } from "./popover";
 import { mergeRef } from "headless/utils";
 
 type _PopoverTriggerProps = {
-  children:
-    | React.ReactNode
-    | (({ isOpen }: { isOpen: boolean }) => React.ReactNode);
+  children: React.ReactNode | (() => React.ReactNode);
 };
 
 type PolymorphicPopoverTriggerProps<T extends React.ElementType> =
@@ -38,9 +36,7 @@ export const PopoverTrigger: PopoverTriggerComponent = forwardRef(
 
     return (
       <Element {...mergedProps} ref={mergeRef(ref, popoverContext?.triggerRef)}>
-        {typeof children === "function"
-          ? children({ isOpen: popoverContext?.isOpen })
-          : children}
+        {typeof children === "function" ? children() : children}
       </Element>
     );
   }

@@ -25,6 +25,17 @@ export const Simple: Story = {
   ),
 };
 
+export const RenderProps: Story = {
+  render: () => (
+    <Popover>
+      <Popover.Trigger>{() => <div>Click</div>}</Popover.Trigger>
+      <Popover.Content>
+        <div>Popover content</div>
+      </Popover.Content>
+    </Popover>
+  ),
+};
+
 export const SimpleControl: Story = {
   render: () => {
     const [isOpen, setOpen] = useState(false);
