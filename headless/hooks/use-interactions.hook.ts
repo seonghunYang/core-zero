@@ -2,7 +2,7 @@ import {
   InteractionDataProps,
   InteractionState,
 } from "headless/types/interactions";
-import { mergeProps } from "headless/utils";
+import { mergeProps } from "headless/utils/merge";
 import { useState } from "react";
 import { useFocus, useHover, usePress } from "react-aria";
 

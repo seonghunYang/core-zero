@@ -6,7 +6,7 @@ import {
   PolymorphicComponentPropsWithRef,
   PolymorphicRef,
 } from "headless/types/polymorphic";
-import { mergeRef } from "headless/utils";
+import { mergeRef } from "headless/utils/merge";
 
 type _PopoverContentProps = {
   children: React.ReactNode;

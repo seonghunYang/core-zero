@@ -10,7 +10,7 @@ import {
 } from "../components/popover/popover";
 import { useOverlayTrigger } from "./use-overlay-trigger.hook";
 import { useInteractions } from "./use-interactions.hook";
-import { mergeProps } from "headless/utils";
+import { mergeProps } from "headless/utils/merge";
 
 interface UsePopoverReturn<T extends Element, C extends Element>
   extends OverlayState {
