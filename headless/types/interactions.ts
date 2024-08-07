@@ -1,4 +1,3 @@
-
 export interface InteractionState {
   isFocus: boolean;
   isActive: boolean;
@@ -6,7 +5,7 @@ export interface InteractionState {
 }
 
 export interface InteractionDataProps {
-  'data-focus': boolean;
-  'data-active': boolean;
-  'data-hover': boolean;
+  "data-focus"?: boolean;
+  "data-active"?: boolean;
+  "data-hover"?: boolean;
 }
