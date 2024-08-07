@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, ReactText } from "react";
 import { usePopoverContext } from "./popover";
 import {
   PolymorphicComponentPropsWithRef,
@@ -8,7 +8,9 @@ import type { PopoverTriggerProps } from "./popover";
 import { mergeRef } from "headless/utils";
 
 type _PopoverTriggerProps = {
-  children: React.ReactNode;
+  children:
+    | React.ReactNode
+    | (({ isOpen }: { isOpen: boolean }) => React.ReactNode);
 };
 
 type PolymorphicPopoverTriggerProps<T extends React.ElementType> =
@@ -21,7 +23,7 @@ type PopoverTriggerComponent = <T extends React.ElementType = "button">(
 
 export const PopoverTrigger: PopoverTriggerComponent = forwardRef(
   function PopoverTrigger<T extends React.ElementType = "button">(
-    { as, ...props }: PolymorphicPopoverTriggerProps<T>,
+    { as, children, ...props }: PolymorphicPopoverTriggerProps<T>,
     ref: PolymorphicRef<T>
   ) {
     const popoverContext = usePopoverContext();
@@ -35,10 +37,17 @@ export const PopoverTrigger: PopoverTriggerComponent = forwardRef(
     const Element = as || "button";
 
     return (
-      <Element
-        {...mergedProps}
-        ref={mergeRef(ref, popoverContext?.triggerRef)}
-      />
+      <Element {...mergedProps} ref={mergeRef(ref, popoverContext?.triggerRef)}>
+        {typeof children === "function"
+          ? children({ isOpen: popoverContext?.isOpen })
+          : children}
+      </Element>
     );
   }
 );
+
+// type Args<T> = React.ReactNode | ((props: T) => React.ReactNode);
+
+// function render<T>(arg: Args<T>) {
+//   return typeof arg === "function" ? arg() : arg;
+// }

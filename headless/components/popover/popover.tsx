@@ -13,7 +13,10 @@ export type PopoverAriaWithoutCenter = Omit<PopoverAria, "placement"> & {
   placement: "top" | "right" | "bottom" | "left";
 };
 
-export type PopoverTriggerProps = ReturnType<typeof useButton>["buttonProps"];
+export type PopoverTriggerProps = Omit<
+  ReturnType<typeof useButton>["buttonProps"],
+  "children"
+>;
 
 export type PopoverTriggerPropsWithRef<T extends Element> =
   PopoverTriggerProps & {
