@@ -1,3 +1,7 @@
+import {
+  InteractionDataProps,
+  InteractionState,
+} from "headless/types/interactions";
 import { mergeProps } from "headless/utils";
 import { useState } from "react";
 import { useFocus, useHover, usePress } from "react-aria";
@@ -8,11 +12,8 @@ interface UseInteractionsArgs {
 
 interface UseInteractionsReturn {
   interactionProps: React.DOMAttributes<Element>;
-  interactionState: {
-    isFocus: boolean;
-    isPressed: boolean;
-    isHovered: boolean;
-  };
+  interactionState: InteractionState;
+  interactionDataProps: InteractionDataProps;
 }
 
 export function useInteractions({
@@ -37,6 +38,11 @@ export function useInteractions({
       isFocus,
       isPressed,
       isHovered,
+    },
+    interactionDataProps: {
+      "data-focus": isFocus,
+      "data-active": isPressed,
+      "data-hover": isHovered,
     },
   };
 }
