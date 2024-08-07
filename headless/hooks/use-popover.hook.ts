@@ -9,6 +9,8 @@ import {
   PopoverTriggerPropsWithRef,
 } from "../components/popover/popover";
 import { useOverlayTrigger } from "./use-overlay-trigger.hook";
+import { useInteractions } from "./use-interactions.hook";
+import { mergeProps } from "headless/utils";
 
 interface UsePopoverReturn<T extends Element, C extends Element>
   extends OverlayState {
@@ -49,6 +51,13 @@ export function usePopover<
     triggerRef
   );
 
+  const {
+    interactionProps: triggerInteractionProps,
+    interactionDataProps: triggerInteractionDataProps,
+  } = useInteractions({
+    ref: triggerRef,
+  });
+
   const callbacks = {
     onClose: state.close,
     onOpen: state.open,
@@ -56,7 +65,8 @@ export function usePopover<
   };
 
   const triggerProps = {
-    ...overlayTiggerProps,
+    ...mergeProps(overlayTiggerProps, triggerInteractionProps),
+    ...triggerInteractionDataProps,
     ref: triggerRef,
   };
 
