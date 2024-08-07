@@ -1,7 +1,7 @@
 
 export interface InteractionState {
   isFocus: boolean;
-  isPressed: boolean;
+  isActive: boolean;
   isHovered: boolean;
 }
 

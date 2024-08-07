@@ -17,12 +17,13 @@ export type PopoverAriaWithoutCenter = Omit<PopoverAria, "placement"> & {
 export type PopoverTriggerProps = Omit<
   ReturnType<typeof useButton>["buttonProps"],
   "children"
->;
+> &
+  InteractionDataProps;
 
 export type PopoverTriggerPropsWithRef<T extends Element> =
   PopoverTriggerProps & {
     ref: RefObject<T>;
-  } & InteractionDataProps;
+  };
 
 export type PopoverContentProps = PopoverAriaWithoutCenter &
   Pick<OverlayTriggerAria, "overlayProps"> &

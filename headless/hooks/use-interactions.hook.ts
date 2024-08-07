@@ -36,7 +36,7 @@ export function useInteractions({
     interactionProps,
     interactionState: {
       isFocus,
-      isPressed,
+      isActive: isPressed,
       isHovered,
     },
     interactionDataProps: {
