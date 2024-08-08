@@ -1,6 +1,4 @@
-import type { StorybookConfig } from "@storybook/nextjs";
-
-const config: StorybookConfig = {
+const config = {
   stories: ["../**/*.stories.@(js|jsx|mjs|ts|tsx)"],
   addons: [
     "@storybook/addon-onboarding",
@@ -9,11 +7,8 @@ const config: StorybookConfig = {
     "@chromatic-com/storybook",
     "@storybook/addon-interactions",
     "@storybook/addon-a11y",
+    "@storybook/addon-webpack5-compiler-babel"
   ],
-  framework: {
-    name: "@storybook/nextjs",
-    options: {},
-  },
-  staticDirs: ["../public"],
+  framework: "@storybook/react-webpack5",
 };
 export default config;

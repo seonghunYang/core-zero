@@ -1,5 +1,4 @@
 import type { Preview } from "@storybook/react";
-import "../public/popover.css";
 
 const preview: Preview = {
   parameters: {
