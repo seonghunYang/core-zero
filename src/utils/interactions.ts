@@ -1,7 +1,4 @@
-import {
-  InteractionDataProps,
-  InteractionState,
-} from "headless/types/interactions";
+import { InteractionDataProps, InteractionState } from "src/types/interactions";
 
 export function convertDataPropsToState(
   dataProps: InteractionDataProps

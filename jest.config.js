@@ -12,9 +12,9 @@ const customJestConfig = {
   testEnvironment: "jsdom",
   coverageReporters: ["text"],
   collectCoverageFrom: [
-    "<rootDir>/headless/**/*.{ts,tsx}",
-    "!<rootDir>/headless/**/*.stories.{ts,tsx}",
-  ]
+    "<rootDir>/src/**/*.{ts,tsx}",
+    "!<rootDir>/src/**/*.stories.{ts,tsx}",
+  ],
 };
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async

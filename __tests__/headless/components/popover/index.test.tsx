@@ -1,5 +1,5 @@
 import { PopoverTestTemplate } from "./popover-test-template";
-import * as Stories from "headless/components/popover/popover.stories";
+import * as Stories from "src/components/popover/popover.stories";
 import { makeStoriesTotestability } from "__tests__/utils/story";
 
 const TestStories = makeStoriesTotestability(Stories);

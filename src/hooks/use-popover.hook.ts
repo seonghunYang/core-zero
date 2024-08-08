@@ -10,7 +10,7 @@ import {
 } from "../components/popover/popover";
 import { useOverlayTrigger } from "./use-overlay-trigger.hook";
 import { useInteractions } from "./use-interactions.hook";
-import { mergeProps } from "headless/utils/merge";
+import { mergeProps } from "src/utils/merge";
 
 interface UsePopoverReturn<T extends Element, C extends Element>
   extends OverlayState {
@@ -21,7 +21,7 @@ interface UsePopoverReturn<T extends Element, C extends Element>
 
 export function usePopover<
   T extends Element = HTMLButtonElement,
-  C extends Element = HTMLDivElement,
+  C extends Element = HTMLDivElement
 >(props: PopoverProps<T, C>): UsePopoverReturn<T, C> {
   const state = useOverlayState({
     isOpen: props.isOpen,

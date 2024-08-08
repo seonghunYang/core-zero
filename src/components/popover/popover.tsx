@@ -2,8 +2,8 @@ import type { AriaPopoverProps, PopoverAria, useButton } from "react-aria";
 import { OverlayTriggerAria } from "react-aria";
 import { createContext, RefObject, useContext } from "react";
 import { usePopover } from "../../hooks/use-popover.hook";
-import { OverlayCallback } from "headless/hooks/use-overlay-state.hook";
-import { InteractionDataProps } from "headless/types/interactions";
+import { OverlayCallback } from "src/hooks/use-overlay-state.hook";
+import { InteractionDataProps } from "src/types/interactions";
 
 export interface PopoverState extends OverlayCallback {
   isOpen: boolean;
@@ -65,7 +65,7 @@ interface PopoverRootProps<T extends Element, C extends Element>
 
 export function PopoverRoot<
   T extends Element = HTMLButtonElement,
-  C extends Element = HTMLDivElement,
+  C extends Element = HTMLDivElement
 >({ children, ...props }: PopoverRootProps<T, C>) {
   const { rootProps } = usePopover({
     ...props,

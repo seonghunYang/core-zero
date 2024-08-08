@@ -1,8 +1,5 @@
-import {
-  InteractionDataProps,
-  InteractionState,
-} from "headless/types/interactions";
-import { mergeProps } from "headless/utils/merge";
+import { InteractionDataProps, InteractionState } from "src/types/interactions";
+import { mergeProps } from "src/utils/merge";
 import { useState } from "react";
 import { useFocus, useHover, usePress } from "react-aria";
 

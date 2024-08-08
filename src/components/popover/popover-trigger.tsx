@@ -3,11 +3,11 @@ import { usePopoverContext } from "./popover";
 import {
   PolymorphicComponentPropsWithRef,
   PolymorphicRef,
-} from "headless/types/polymorphic";
+} from "src/types/polymorphic";
 import type { PopoverTriggerProps } from "./popover";
-import { mergeRef } from "headless/utils/merge";
-import { InteractionState } from "headless/types/interactions";
-import { convertDataPropsToState } from "headless/utils/interactions";
+import { mergeRef } from "src/utils/merge";
+import { InteractionState } from "src/types/interactions";
+import { convertDataPropsToState } from "src/utils/interactions";
 
 type _PopoverTriggerProps = {
   children: React.ReactNode | ((props: InteractionState) => React.ReactNode);

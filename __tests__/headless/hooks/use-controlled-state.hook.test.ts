@@ -1,5 +1,5 @@
 import { act, renderHook } from "@testing-library/react";
-import { useControlledState } from "../../../headless/hooks/use-controlled-state.hook";
+import { useControlledState } from "../../../src/hooks/use-controlled-state.hook";
 import { useState } from "react";
 
 function controlledHook(props?: { onChange?: (v: boolean) => void }) {

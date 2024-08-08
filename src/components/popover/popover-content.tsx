@@ -5,8 +5,8 @@ import { Dialog } from "../dialog/dialog";
 import {
   PolymorphicComponentPropsWithRef,
   PolymorphicRef,
-} from "headless/types/polymorphic";
-import { mergeRef } from "headless/utils/merge";
+} from "src/types/polymorphic";
+import { mergeRef } from "src/utils/merge";
 
 type _PopoverContentProps = {
   children: React.ReactNode;

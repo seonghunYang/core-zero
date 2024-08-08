@@ -1,0 +1,36 @@
+{
+  "name": "zero-one",
+  "version": "0.0.1",
+  "description": "beta",
+  "main": "./dist/bundle.js",
+  "module": "./dist/esm/bundle.js",
+  "type": "module",
+  "exports": {
+    ".": {
+      "require": "./dist/bundle.js",
+      "import": "./dist/esm/bundle.js"
+    }
+  },
+  "scripts": {
+    "build": "rollup -c",
+    "watch": "rollup -cw",
+    "prebuild": "rm -rf dist",
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seonghunYang/src-design-system.git"
+  },
+  "keywords": [
+    "src"
+  ],
+  "author": "seonghunyang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/seonghunYang/src-design-system/issues"
+  },
+  "homepage": "https://github.com/seonghunYang/src-design-system#readme",
+  "devDependencies": {
+    "rollup": "^4.20.0"
+  }
+}

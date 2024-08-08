@@ -5,7 +5,7 @@ import { usePopover } from "../../hooks/use-popover.hook";
 import { useRef, useState } from "react";
 
 const meta = {
-  title: "Headless/Components/Popover",
+  title: "src/Components/Popover",
   parameters: {
     layout: "centered",
   },
