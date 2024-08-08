@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "outDir": "dist/dts",
+    "emitDeclarationOnly": true,
+    "target": "es2015",
+    "module": "esnext",
+    "jsx": "react-jsx",
+    "sourceMap": true,
+    "strict": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": "."
+  },
+  "include": ["./src"],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "./src/**/*.test.@(ts|tsx)",
+    "./src/**/*.stories.tsx"
+  ]
+}
