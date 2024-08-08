@@ -15,7 +15,9 @@
     "build": "rollup -c",
     "watch": "rollup -cw",
     "prebuild": "rm -rf dist",
-    "test": "npm test"
+    "test": "npm test",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "repository": {
     "type": "git",
@@ -30,7 +32,43 @@
     "url": "https://github.com/seonghunYang/src-design-system/issues"
   },
   "homepage": "https://github.com/seonghunYang/src-design-system#readme",
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "react-aria": "^3.34.1"
+  },
   "devDependencies": {
-    "rollup": "^4.20.0"
+    "@babel/core": "^7.25.2",
+    "@babel/preset-env": "^7.25.3",
+    "@babel/preset-react": "^7.24.7",
+    "@babel/preset-typescript": "^7.24.7",
+    "@chromatic-com/storybook": "^1.6.1",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@storybook/addon-a11y": "^8.2.8",
+    "@storybook/addon-essentials": "^8.2.8",
+    "@storybook/addon-interactions": "^8.2.8",
+    "@storybook/addon-links": "^8.2.8",
+    "@storybook/addon-onboarding": "^8.2.8",
+    "@storybook/addon-webpack5-compiler-swc": "^1.0.5",
+    "@storybook/blocks": "^8.2.8",
+    "@storybook/react": "^8.2.8",
+    "@storybook/react-webpack5": "^8.2.8",
+    "@storybook/test": "^8.2.8",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "autoprefixer": "^10.4.20",
+    "postcss-import": "^16.1.0",
+    "rollup": "^4.20.0",
+    "rollup-plugin-dts": "^6.1.1",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-postcss": "^4.0.2",
+    "storybook": "^8.2.8",
+    "tsconfig-paths-webpack-plugin": "^4.1.0",
+    "tslib": "^2.6.3",
+    "typescript": "^5.5.4"
   }
 }
