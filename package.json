@@ -1,6 +1,6 @@
 {
-  "name": "zero-one",
-  "version": "0.0.1",
+  "name": "@seonghunyang/zero-one",
+  "version": "0.0.6",
   "description": "beta",
   "main": "./dist/bundle.js",
   "module": "./dist/esm/bundle.js",
@@ -8,7 +8,8 @@
   "exports": {
     ".": {
       "require": "./dist/bundle.js",
-      "import": "./dist/esm/bundle.js"
+      "import": "./dist/esm/bundle.js",
+      "types": "./dist/index.d.ts"
     }
   },
   "scripts": {

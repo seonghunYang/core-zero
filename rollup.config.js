@@ -6,32 +6,41 @@ import postcss from "rollup-plugin-postcss";
 import typescript from "@rollup/plugin-typescript";
 import dts from "rollup-plugin-dts";
 
-export default {
-  input: "./src/index.ts", // 진입 경로
-  output: [
-    {
-      file: "./dist/esm/bundle.js", // 빌드 파일 저장 경로
-      format: "es", // 출력 형식
-      sourcemap: true, // 디버깅 유용
-    },
-    {
-      file: "./dist/bundle.js",
-      format: "cjs",
-      sourcemap: true,
-    },
-  ],
-  external: ["react-aria", "clsx"], // 외부 종속성
-  plugins: [
-    // 바벨 트랜스파일러 설정
-    babel({
-      babelHelpers: "bundled",
-      presets: ["@babel/preset-env", "@babel/preset-react"],
-      extensions: [".js", ".jsx", ".ts", ".tsx"],
-    }),
-    peerDepsExternal(),
-    typescript(),
-    postcss({
-      plugins: [cssimport(), autoprefixer()],
-    }),
-  ],
-};
+export default [
+  {
+    input: "./src/index.ts", // 진입 경로
+    output: [
+      {
+        file: "./dist/esm/bundle.js", // 빌드 파일 저장 경로
+        format: "es", // 출력 형식
+        sourcemap: true, // 디버깅 유용
+      },
+      {
+        file: "./dist/bundle.js",
+        format: "cjs",
+        sourcemap: true,
+      },
+    ],
+    external: ["react-aria", "clsx"], // 외부 종속성
+    plugins: [
+      // 바벨 트랜스파일러 설정
+      babel({
+        babelHelpers: "bundled",
+        presets: ["@babel/preset-env", "@babel/preset-react"],
+        extensions: [".js", ".jsx", ".ts", ".tsx"],
+      }),
+      peerDepsExternal(),
+      typescript(),
+      postcss({
+        plugins: [cssimport(), autoprefixer()],
+      }),
+    ],
+  },
+  {
+    // 타입 declation 위치
+    input: "./dist/dts/index.d.ts",
+    output: [{ file: "dist/index.d.ts", format: "es" }],
+    external: [/\.css$/], // css파일이 존재할 경우, 추가
+    plugins: [dts()],
+  },
+];
