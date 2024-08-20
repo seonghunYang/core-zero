@@ -115,9 +115,6 @@ export const CustomComponent: Story = {
       <>
         <Popover {...rootProps}>
           <div {...triggerProps}>click</div>
-          {/* <Popover.Trigger as="div" ref={ref}>
-            click
-          </Popover.Trigger> */}
           <Popover.Content>
             <div>Popover content</div>
           </Popover.Content>
