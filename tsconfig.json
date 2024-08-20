@@ -13,13 +13,13 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "baseUrl": "."
+    "baseUrl": "./"
   },
-  "include": ["./src"],
+  "include": ["./"],
   "exclude": [
     "node_modules",
     "dist",
-    "./src/**/*.test.@(ts|tsx)",
-    "./src/**/*.stories.tsx"
+    "./src/**/*.test.@(ts|tsx)"
+    // "./src/**/*.stories.tsx"
   ]
 }
