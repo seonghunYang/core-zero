@@ -1,6 +1,6 @@
 import { StoryObj } from "@storybook/react";
 
-type StoryObject = { [key: string]: StoryObj };
+type StoryObject = { [key: string]: StoryObj | any };
 
 export type TestStory = StoryObj & {
   name: string;

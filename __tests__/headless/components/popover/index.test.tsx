@@ -3,7 +3,6 @@ import * as Stories from "src/components/popover/popover.stories";
 import { makeStoriesTotestability } from "__tests__/utils/story";
 
 const TestStories = makeStoriesTotestability(Stories);
-
 const template = PopoverTestTemplate();
 
 template(TestStories.Simple);

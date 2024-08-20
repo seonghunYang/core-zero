@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { TestStory } from "__tests__/utils/story";
-import React from "react";
+import { act } from "react";
 
 export function PopoverTestTemplate() {
   return (story: TestStory) => {
@@ -73,7 +73,9 @@ export function PopoverTestTemplate() {
 
         expect(screen.queryByText("Popover content")).not.toBeInTheDocument();
 
-        screen.getByText("click").focus();
+        act(() => {
+          screen.getByText("click").focus();
+        });
         await user.keyboard("{Enter}");
 
         expect(screen.getByText("Popover content")).toBeInTheDocument();
@@ -90,7 +92,9 @@ export function PopoverTestTemplate() {
 
         expect(screen.queryByText("Popover content")).not.toBeInTheDocument();
 
-        screen.getByText("click").focus();
+        act(() => {
+          screen.getByText("click").focus();
+        });
         await user.keyboard(" ");
 
         expect(screen.getByText("Popover content")).toBeInTheDocument();
