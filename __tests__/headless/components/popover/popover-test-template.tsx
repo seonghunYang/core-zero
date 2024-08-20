@@ -1,6 +1,6 @@
-import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { TestStory } from "__tests__/utils/story";
+import { render, screen, within } from "__tests__/utils/test-uitls";
 import { act } from "react";
 
 export function PopoverTestTemplate() {
@@ -92,6 +92,7 @@ export function PopoverTestTemplate() {
 
         expect(screen.queryByText("Popover content")).not.toBeInTheDocument();
 
+        // screen.getho
         act(() => {
           screen.getByText("click").focus();
         });
@@ -102,6 +103,22 @@ export function PopoverTestTemplate() {
         await user.keyboard("{Escape}");
 
         expect(screen.queryByText("Popover content")).not.toBeInTheDocument();
+      });
+    });
+
+    describe("interaction", () => {
+      it("hover trigger button", async () => {
+        const user = userEvent.setup();
+        render(<Component />);
+
+        const tirggerButton = screen.getByText("click");
+
+        expect(tirggerButton.dataset.hover).toBe("false");
+
+        await user.hover(tirggerButton);
+
+        expect(tirggerButton.dataset.hover).toBe("true");
+        // within(tirggerButton).getByDataHover("true");
       });
     });
   };
