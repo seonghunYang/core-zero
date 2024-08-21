@@ -5,7 +5,7 @@ export interface InteractionState {
 }
 
 export interface InteractionDataProps {
-  "data-focus"?: boolean;
-  "data-active"?: boolean;
-  "data-hover"?: boolean;
+  "data-focus"?: string;
+  "data-active"?: string;
+  "data-hover"?: string;
 }

@@ -29,17 +29,35 @@ export function useInteractions({
 
   const interactionProps = mergeProps(pressProps, focusProps, hoverProps);
 
+  const interactionState = {
+    isFocus,
+    isActive: isPressed,
+    isHovered,
+  };
+
+  const interactionDataProps = createDataProps(interactionState);
+
   return {
     interactionProps,
-    interactionState: {
-      isFocus,
-      isActive: isPressed,
-      isHovered,
-    },
-    interactionDataProps: {
-      "data-focus": isFocus,
-      "data-active": isPressed,
-      "data-hover": isHovered,
-    },
+    interactionState,
+    interactionDataProps,
   };
+
+  function createDataProps(interactionState: InteractionState) {
+    const result: InteractionDataProps = {};
+
+    if (interactionState.isActive) {
+      result["data-active"] = "";
+    }
+
+    if (interactionState.isFocus) {
+      result["data-focus"] = "";
+    }
+
+    if (interactionState.isHovered) {
+      result["data-hover"] = "";
+    }
+
+    return result;
+  }
 }
