@@ -5,6 +5,10 @@ import { usePopover } from "../../hooks/use-popover.hook";
 import { OverlayCallback } from "src/hooks/use-overlay-state.hook";
 import { InteractionDataProps } from "src/types/interactions";
 
+export interface PopoverTriggerDataProps extends InteractionDataProps {
+  "data-open"?: string;
+}
+
 export interface PopoverState extends OverlayCallback {
   isOpen: boolean;
   setOpen(isOpen: boolean): void;
@@ -18,7 +22,7 @@ export type PopoverTriggerProps = Omit<
   ReturnType<typeof useButton>["buttonProps"],
   "children"
 > &
-  InteractionDataProps;
+  PopoverTriggerDataProps;
 
 export type PopoverTriggerPropsWithRef<T extends Element> =
   PopoverTriggerProps & {
@@ -65,7 +69,7 @@ interface PopoverRootProps<T extends Element, C extends Element>
 
 export function PopoverRoot<
   T extends Element = HTMLButtonElement,
-  C extends Element = HTMLDivElement
+  C extends Element = HTMLDivElement,
 >({ children, ...props }: PopoverRootProps<T, C>) {
   const { rootProps } = usePopover({
     ...props,

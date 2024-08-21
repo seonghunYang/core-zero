@@ -5,12 +5,18 @@ import {
   PolymorphicRef,
 } from "src/types/polymorphic";
 import type { PopoverTriggerProps } from "./popover";
-import { mergeRef } from "src/utils/merge";
+import { mergeProps, mergeRef } from "src/utils/merge";
 import { InteractionState } from "src/types/interactions";
 import { convertDataPropsToState } from "src/utils/interactions";
 
+type PopoverChildrenProps = {
+  isOpen: boolean;
+} & InteractionState;
+
 type _PopoverTriggerProps = {
-  children: React.ReactNode | ((props: InteractionState) => React.ReactNode);
+  children:
+    | React.ReactNode
+    | ((props: PopoverChildrenProps) => React.ReactNode);
 };
 
 type PolymorphicPopoverTriggerProps<T extends React.ElementType> =
@@ -37,9 +43,15 @@ export const PopoverTrigger: PopoverTriggerComponent = forwardRef(
     const Element = as || "button";
 
     const interactionState = convertDataPropsToState(mergedProps);
+
     return (
       <Element {...mergedProps} ref={mergeRef(ref, popoverContext?.triggerRef)}>
-        {typeof children === "function" ? children(interactionState) : children}
+        {typeof children === "function"
+          ? children({
+              ...interactionState,
+              isOpen: mergedProps["data-open"] === undefined ? false : true,
+            })
+          : children}
       </Element>
     );
   }
