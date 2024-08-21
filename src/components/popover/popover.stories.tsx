@@ -25,6 +25,17 @@ export const Simple: Story = {
   ),
 };
 
+export const Styling: Story = {
+  render: () => (
+    <Popover>
+      <Popover.Trigger>click</Popover.Trigger>
+      <Popover.Content className="w-52 origin-top-right rounded-xl border bg-black/5 p-1 text-sm/6  transition duration-100 ease-out [--anchor-gap:var(--spacing-1)] focus:outline-none data-[closed]:scale-95 data-[closed]:opacity-0">
+        <div>Popover content</div>
+      </Popover.Content>
+    </Popover>
+  ),
+};
+
 export const Placement: Story = {
   render: () => (
     <Popover placement={"left"}>

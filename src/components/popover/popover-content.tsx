@@ -47,6 +47,8 @@ export const PopoverContent: PopoverContentComponent = forwardRef(
 
     const Element = as || "div";
 
+    console.log(mergedProps);
+    console.log(restProps);
     return (
       <>
         {isOpen && (
@@ -58,17 +60,14 @@ export const PopoverContent: PopoverContentComponent = forwardRef(
                 position: "fixed",
                 inset: 0,
               }}
-              className="underlay"
             />
             <Element
               {...popoverProps}
               {...restProps}
               style={{
                 ...popoverProps?.style,
-                background: "var(--page-background)",
               }}
               ref={mergeRef(ref, popoverContext?.popoverRef)}
-              className="popover"
             >
               <DismissButton onDismiss={onClose} />
               <Dialog {...overlayProps}>{children}</Dialog>
