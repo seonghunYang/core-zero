@@ -4,8 +4,8 @@ export function convertDataPropsToState(
   dataProps: InteractionDataProps
 ): InteractionState {
   return {
-    isFocus: dataProps["data-focus"] ?? false,
-    isActive: dataProps["data-active"] ?? false,
-    isHovered: dataProps["data-hover"] ?? false,
+    isFocus: dataProps["data-focus"] === undefined ? false : true,
+    isActive: dataProps["data-active"] === undefined ? false : true,
+    isHovered: dataProps["data-hover"] === undefined ? false : true,
   };
 }
