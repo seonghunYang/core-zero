@@ -137,6 +137,12 @@ export function PopoverTestTemplate() {
 
       expect(triggerButton.dataset.active).toBe("");
       expect(triggerButton.dataset.focus).toBe("");
+
+      await user.pointer({
+        target: triggerButton,
+        keys: "[/MouseLeft]",
+      });
+      expect(triggerButton.dataset.open).toBe("");
     });
   };
 }
