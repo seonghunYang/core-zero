@@ -5,6 +5,8 @@ import { usePopover } from "../../hooks/use-popover.hook";
 import { OverlayCallback } from "src/hooks/use-overlay-state.hook";
 import { InteractionDataProps } from "src/types/interactions";
 
+type Placement = "top" | "right" | "bottom" | "left";
+
 export interface PopoverTriggerDataProps extends InteractionDataProps {
   "data-open"?: string;
 }
@@ -15,7 +17,7 @@ export interface PopoverState extends OverlayCallback {
 }
 
 export type PopoverAriaWithoutCenter = Omit<PopoverAria, "placement"> & {
-  placement: "top" | "right" | "bottom" | "left";
+  placement: Placement;
 };
 
 export type PopoverTriggerProps = Omit<
@@ -44,6 +46,7 @@ export interface PopoverRoot<T extends Element, C extends Element>
   triggerRef: React.RefObject<T>;
   triggerProps: PopoverTriggerPropsWithRef<T>;
   popoverContentProps: PopoverContentPropsWithRef<C>;
+  placement: Placement;
 }
 
 type PopoverContextValue<T extends Element, C extends Element> = PopoverRoot<

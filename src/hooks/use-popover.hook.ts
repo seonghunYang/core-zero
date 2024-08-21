@@ -44,6 +44,8 @@ export function usePopover<
     state
   );
 
+  // popoverAriaProps.
+
   const { overlayTriggerAriaProps, overlayTiggerProps } = useOverlayTrigger(
     { type: "dialog" },
     state,

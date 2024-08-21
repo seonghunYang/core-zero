@@ -25,6 +25,28 @@ export const Simple: Story = {
   ),
 };
 
+export const Placement: Story = {
+  render: () => (
+    <Popover placement={"left"}>
+      <Popover.Trigger>click</Popover.Trigger>
+      <Popover.Content>
+        <div>Popover content</div>
+      </Popover.Content>
+    </Popover>
+  ),
+};
+
+export const Offset: Story = {
+  render: () => (
+    <Popover offset={50}>
+      <Popover.Trigger>click</Popover.Trigger>
+      <Popover.Content>
+        <div>Popover content</div>
+      </Popover.Content>
+    </Popover>
+  ),
+};
+
 export const RenderProps: Story = {
   render: () => (
     <Popover>
@@ -65,6 +87,27 @@ export const SimpleControl: Story = {
 export const ControlWithHook: Story = {
   render: () => {
     const { rootProps } = usePopover({ defaultOpen: false });
+
+    return (
+      <>
+        <Popover {...rootProps}>
+          <Popover.Trigger>click</Popover.Trigger>
+          <Popover.Content>
+            <div>Popover content</div>
+          </Popover.Content>
+        </Popover>
+      </>
+    );
+  },
+};
+
+export const PlacementAndOffsetWithHook: Story = {
+  render: () => {
+    const { rootProps } = usePopover({
+      defaultOpen: false,
+      placement: "left",
+      offset: 50,
+    });
 
     return (
       <>
