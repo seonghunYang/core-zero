@@ -6,11 +6,13 @@ import {
   PopoverContentPropsWithRef,
   PopoverProps,
   PopoverRoot,
+  PopoverTriggerDataProps,
   PopoverTriggerPropsWithRef,
 } from "../components/popover/popover";
 import { useOverlayTrigger } from "./use-overlay-trigger.hook";
 import { useInteractions } from "./use-interactions.hook";
 import { mergeProps } from "src/utils/merge";
+import { InteractionDataProps } from "src/types/interactions";
 
 interface UsePopoverReturn<T extends Element, C extends Element>
   extends OverlayState {
@@ -55,16 +57,16 @@ export function usePopover<
     ref: triggerRef,
   });
 
+  const triggerProps = {
+    ...mergeProps(overlayTiggerProps, triggerInteractionProps),
+    ...createTriggerDataProps(triggerInteractionDataProps),
+    ref: triggerRef,
+  };
+
   const callbacks = {
     onClose: state.close,
     onOpen: state.open,
     onToggle: state.toggle,
-  };
-
-  const triggerProps = {
-    ...mergeProps(overlayTiggerProps, triggerInteractionProps),
-    ...triggerInteractionDataProps,
-    ref: triggerRef,
   };
 
   const popoverContentProps = {
@@ -92,6 +94,18 @@ export function usePopover<
     triggerProps,
     popoverContentProps,
   };
+
+  function createTriggerDataProps(
+    interactionDataProps: InteractionDataProps
+  ): PopoverTriggerDataProps {
+    const result: PopoverTriggerDataProps = { ...interactionDataProps };
+
+    if (state.isOpen) {
+      result["data-open"] = "";
+    }
+
+    return result;
+  }
 }
 
 function usePopoverAriaOverride(
