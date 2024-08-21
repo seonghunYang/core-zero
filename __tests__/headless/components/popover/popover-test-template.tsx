@@ -76,6 +76,7 @@ export function PopoverTestTemplate() {
         act(() => {
           screen.getByText("click").focus();
         });
+
         await user.keyboard("{Enter}");
 
         expect(screen.getByText("Popover content")).toBeInTheDocument();
@@ -92,7 +93,6 @@ export function PopoverTestTemplate() {
 
         expect(screen.queryByText("Popover content")).not.toBeInTheDocument();
 
-        // screen.getho
         act(() => {
           screen.getByText("click").focus();
         });
@@ -113,13 +113,30 @@ export function PopoverTestTemplate() {
 
         const tirggerButton = screen.getByText("click");
 
-        expect(tirggerButton.dataset.hover).toBe("false");
+        expect(tirggerButton.dataset.hover).toBeUndefined();
 
         await user.hover(tirggerButton);
 
-        expect(tirggerButton.dataset.hover).toBe("true");
-        // within(tirggerButton).getByDataHover("true");
+        expect(tirggerButton.dataset.hover).toBe("");
       });
+    });
+
+    it("pressing trigger button", async () => {
+      const user = userEvent.setup();
+      render(<Component />);
+
+      const triggerButton = screen.getByText("click");
+
+      expect(triggerButton.dataset.active).toBeUndefined();
+      expect(triggerButton.dataset.active).toBeUndefined();
+
+      await user.pointer({
+        target: triggerButton,
+        keys: "[MouseLeft>]",
+      });
+
+      expect(triggerButton.dataset.active).toBe("");
+      expect(triggerButton.dataset.focus).toBe("");
     });
   };
 }
