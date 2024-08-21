@@ -12,11 +12,7 @@ export function Dialog({ title, children, ...props }: DialogProps) {
   let { dialogProps, titleProps } = useDialog(props, ref);
 
   return (
-    <div
-      {...dialogProps}
-      ref={ref}
-      style={{ padding: 30, maxWidth: 200, outline: "none" }}
-    >
+    <div {...dialogProps} ref={ref} style={{ outline: "none" }}>
       {title && (
         <h3 {...titleProps} style={{ marginTop: 0 }}>
           {title}

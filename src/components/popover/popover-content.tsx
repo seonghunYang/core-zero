@@ -51,21 +51,25 @@ export const PopoverContent: PopoverContentComponent = forwardRef(
       <>
         {isOpen && (
           <Overlay>
-            <div {...underlayProps} className="underlay" />
+            <div
+              {...underlayProps}
+              style={{
+                ...underlayProps?.style,
+                position: "fixed",
+                inset: 0,
+              }}
+              className="underlay"
+            />
             <Element
               {...popoverProps}
               {...restProps}
+              style={{
+                ...popoverProps?.style,
+                background: "var(--page-background)",
+              }}
               ref={mergeRef(ref, popoverContext?.popoverRef)}
               className="popover"
             >
-              <svg
-                {...arrowProps}
-                className="arrow"
-                data-placement={placement}
-                viewBox="0 0 12 12"
-              >
-                <path d="M0 0 L6 6 L12 0" />
-              </svg>
               <DismissButton onDismiss={onClose} />
               <Dialog {...overlayProps}>{children}</Dialog>
               <DismissButton onDismiss={onClose} />
