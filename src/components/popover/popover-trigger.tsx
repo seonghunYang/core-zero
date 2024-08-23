@@ -9,14 +9,14 @@ import { mergeProps, mergeRef } from "src/utils/merge";
 import { InteractionState } from "src/types/interactions";
 import { convertDataPropsToState } from "src/utils/interactions";
 
-type PopoverChildrenProps = {
+type PopoverTriggerChildrenProps = {
   isOpen: boolean;
 } & InteractionState;
 
 type _PopoverTriggerProps = {
   children:
     | React.ReactNode
-    | ((props: PopoverChildrenProps) => React.ReactNode);
+    | ((props: PopoverTriggerChildrenProps) => React.ReactNode);
 };
 
 type PolymorphicPopoverTriggerProps<T extends React.ElementType> =
