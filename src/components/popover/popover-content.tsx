@@ -1,5 +1,5 @@
 import { DismissButton, Overlay } from "react-aria";
-import { PopoverContentProps, usePopoverContext } from "./popover";
+import { Placement, PopoverContentProps, usePopoverContext } from "./popover";
 import React, { forwardRef } from "react";
 import { Dialog } from "../dialog/dialog";
 import {
@@ -7,9 +7,18 @@ import {
   PolymorphicRef,
 } from "src/types/polymorphic";
 import { mergeRef } from "src/utils/merge";
+import { InteractionState } from "src/types/interactions";
+import { convertDataPropsToState } from "src/utils/interactions";
+
+type PopoverContentChildrenProps = {
+  isOpen: boolean;
+  placement: Placement;
+} & Omit<InteractionState, "isFocus">;
 
 type _PopoverContentProps = {
-  children: React.ReactNode;
+  children:
+    | React.ReactNode
+    | ((props: PopoverContentChildrenProps) => React.ReactNode);
 };
 
 type polymorphicPopoverContentProps<C extends React.ElementType> =
@@ -47,6 +56,8 @@ export const PopoverContent: PopoverContentComponent = forwardRef(
 
     const Element = as || "div";
 
+    const renderProps = convertDataPropsToContentRenderProps();
+
     return (
       <>
         {isOpen && (
@@ -68,12 +79,28 @@ export const PopoverContent: PopoverContentComponent = forwardRef(
               ref={mergeRef(ref, popoverContext?.popoverRef)}
             >
               <DismissButton onDismiss={onClose} />
-              <Dialog {...overlayProps}>{children}</Dialog>
+              <Dialog {...overlayProps}>
+                {typeof children === "function"
+                  ? children({
+                      ...renderProps,
+                    })
+                  : children}
+              </Dialog>
               <DismissButton onDismiss={onClose} />
             </Element>
           </Overlay>
         )}
       </>
     );
+
+    function convertDataPropsToContentRenderProps(): PopoverContentChildrenProps {
+      const interactionState = convertDataPropsToState(mergedProps);
+
+      return {
+        ...interactionState,
+        placement: placement ?? "bottom",
+        isOpen: isOpen ?? false,
+      };
+    }
   }
 );
