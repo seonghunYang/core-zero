@@ -38,7 +38,7 @@ export default [
   },
   {
     // 타입 declation 위치
-    input: "./dist/dts/index.d.ts",
+    input: "./dist/dts/src/index.d.ts",
     output: [{ file: "dist/index.d.ts", format: "es" }],
     external: [/\.css$/], // css파일이 존재할 경우, 추가
     plugins: [dts()],
