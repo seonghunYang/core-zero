@@ -1,6 +1,6 @@
 {
   "name": "@seonghunyang/zero-one",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "beta",
   "main": "./dist/bundle.js",
   "module": "./dist/esm/bundle.js",
