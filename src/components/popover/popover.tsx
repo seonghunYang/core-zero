@@ -5,7 +5,7 @@ import { usePopover } from "../../hooks/use-popover.hook";
 import { OverlayCallback } from "src/hooks/use-overlay-state.hook";
 import { InteractionDataProps } from "src/types/interactions";
 
-type Placement = "top" | "right" | "bottom" | "left";
+export type Placement = "top" | "right" | "bottom" | "left";
 
 export interface PopoverTriggerDataProps extends InteractionDataProps {
   "data-open"?: string;

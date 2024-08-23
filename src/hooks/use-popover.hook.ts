@@ -2,7 +2,9 @@ import { useRef } from "react";
 import { OverlayState, useOverlayState } from "./use-overlay-state.hook";
 import { AriaPopoverProps, usePopover as usePopoverAria } from "react-aria";
 import {
+  Placement,
   PopoverAriaWithoutCenter,
+  PopoverContentDataProps,
   PopoverContentPropsWithRef,
   PopoverProps,
   PopoverRoot,
@@ -88,7 +90,10 @@ export function usePopover<
     },
     ref: popoverRef,
     overlayProps: overlayTriggerAriaProps.overlayProps,
-    ...popoverInteractionDataProps,
+    ...createPopoverDataProps(
+      popoverInteractionDataProps,
+      popoverAriaProps.placement
+    ),
   };
 
   const rootProps = {
@@ -117,6 +122,21 @@ export function usePopover<
     if (state.isOpen) {
       result["data-open"] = "";
     }
+
+    return result;
+  }
+
+  function createPopoverDataProps(
+    interactionDataProps: InteractionDataProps,
+    placement: Placement
+  ): PopoverContentDataProps {
+    const result: PopoverContentDataProps = { ...interactionDataProps };
+
+    if (state.isOpen) {
+      result["data-open"] = "";
+    }
+
+    result["data-placement"] = placement;
 
     return result;
   }
