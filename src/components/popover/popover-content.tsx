@@ -47,8 +47,6 @@ export const PopoverContent: PopoverContentComponent = forwardRef(
 
     const Element = as || "div";
 
-    console.log(mergedProps);
-    console.log(restProps);
     return (
       <>
         {isOpen && (
