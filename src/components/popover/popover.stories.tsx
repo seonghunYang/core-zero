@@ -72,7 +72,14 @@ export const RenderProps: Story = {
         )}
       </Popover.Trigger>
       <Popover.Content>
-        <div>Popover content</div>
+        {({ isOpen, isHovered, isActive, placement }) => (
+          <>
+            <div>isOpen: {isOpen ? "true" : "false"}</div>
+            <div>isHoverd: {isHovered ? "true" : "false"}</div>
+            <div>isActive: {isActive ? "true" : "false"}</div>
+            <div>{placement}</div>
+          </>
+        )}
       </Popover.Content>
     </Popover>
   ),
