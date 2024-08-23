@@ -11,6 +11,12 @@ export interface PopoverTriggerDataProps extends InteractionDataProps {
   "data-open"?: string;
 }
 
+export interface PopoverContentDataProps
+  extends Omit<InteractionDataProps, "data-focus"> {
+  "data-open"?: string;
+  "data-placement"?: Placement;
+}
+
 export interface PopoverState extends OverlayCallback {
   isOpen: boolean;
   setOpen(isOpen: boolean): void;
@@ -33,7 +39,8 @@ export type PopoverTriggerPropsWithRef<T extends Element> =
 
 export type PopoverContentProps = PopoverAriaWithoutCenter &
   Pick<OverlayTriggerAria, "overlayProps"> &
-  Pick<PopoverState, "isOpen">;
+  Pick<PopoverState, "isOpen"> &
+  PopoverContentDataProps;
 
 export type PopoverContentPropsWithRef<C extends Element> =
   PopoverContentProps & {

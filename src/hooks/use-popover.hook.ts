@@ -44,8 +44,6 @@ export function usePopover<
     state
   );
 
-  // popoverAriaProps.
-
   const { overlayTriggerAriaProps, overlayTiggerProps } = useOverlayTrigger(
     { type: "dialog" },
     state,
@@ -71,12 +69,26 @@ export function usePopover<
     onToggle: state.toggle,
   };
 
+  const {
+    interactionProps: popoverInteractionProps,
+    interactionDataProps: popoverInteractionDataProps,
+  } = useInteractions({
+    ref: popoverRef,
+  });
+
   const popoverContentProps = {
     isOpen: state.isOpen,
     ...callbacks,
-    ...popoverAriaProps,
+    ...{
+      ...popoverAriaProps,
+      popoverProps: mergeProps(
+        popoverAriaProps.popoverProps,
+        popoverInteractionProps
+      ),
+    },
     ref: popoverRef,
     overlayProps: overlayTriggerAriaProps.overlayProps,
+    ...popoverInteractionDataProps,
   };
 
   const rootProps = {
