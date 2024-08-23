@@ -42,17 +42,25 @@ export const PopoverTrigger: PopoverTriggerComponent = forwardRef(
 
     const Element = as || "button";
 
-    const interactionState = convertDataPropsToState(mergedProps);
+    const renderProps = convertDataPropsToTriggerRenderProps();
 
     return (
       <Element {...mergedProps} ref={mergeRef(ref, popoverContext?.triggerRef)}>
         {typeof children === "function"
           ? children({
-              ...interactionState,
-              isOpen: mergedProps["data-open"] === undefined ? false : true,
+              ...renderProps,
             })
           : children}
       </Element>
     );
+
+    function convertDataPropsToTriggerRenderProps() {
+      const interactionState = convertDataPropsToState(mergedProps);
+
+      return {
+        ...interactionState,
+        isOpen: mergedProps["data-open"] === undefined ? false : true,
+      };
+    }
   }
 );
