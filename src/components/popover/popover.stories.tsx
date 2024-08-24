@@ -31,7 +31,7 @@ export const Styling: Story = {
       <Popover.Trigger className="block text-sm/6 border rounded-lg px-3 border-black/50 font-semibold text-black/50 focus:outline-none data-[active]:text-black data-[hover]:text-black data-[focus]:outline-1 data-[focus]:outline-black">
         popover
       </Popover.Trigger>
-      <Popover.Content className="w-52 rounded-xl bg-black/5 text-sm/6 data-[closed]:opacity-0 animate-opacity-show">
+      <Popover.Content className="w-52 rounded-xl bg-black/5 text-sm/6 data-[closed]:animate-opacity-show-reverse data-[open]:animate-opacity-show">
         <div>Popover content</div>
       </Popover.Content>
     </Popover>
