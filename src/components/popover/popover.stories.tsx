@@ -27,9 +27,24 @@ export const Simple: Story = {
 
 export const Styling: Story = {
   render: () => (
-    <Popover>
-      <Popover.Trigger>click</Popover.Trigger>
-      <Popover.Content className="w-52 origin-top-right rounded-xl border bg-black/5 p-1 text-sm/6  transition duration-100 ease-out [--anchor-gap:var(--spacing-1)] focus:outline-none data-[closed]:scale-95 data-[closed]:opacity-0">
+    <Popover offset={5}>
+      <Popover.Trigger className="block text-sm/6 border rounded-lg px-3 border-black/50 font-semibold text-black/50 focus:outline-none data-[active]:text-black data-[hover]:text-black data-[focus]:outline-1 data-[focus]:outline-black">
+        popover
+      </Popover.Trigger>
+      <Popover.Content className="w-52 rounded-xl bg-black/5 text-sm/6 data-[closed]:opacity-0 animate-opacity-show">
+        <div>Popover content</div>
+      </Popover.Content>
+    </Popover>
+  ),
+};
+
+export const Transtition: Story = {
+  render: () => (
+    <Popover offset={5}>
+      <Popover.Trigger className="block text-sm/6 border rounded-lg px-3 border-black/50 font-semibold text-black/50 focus:outline-none data-[active]:text-black data-[hover]:text-black data-[focus]:outline-1 data-[focus]:outline-black">
+        popover
+      </Popover.Trigger>
+      <Popover.Content className="w-52 rounded-xl bg-black/5 text-sm/6 opacity-0 transition duration-200 ease-in-out data-[open]:-translate-y-1 data-[open]:opacity-100">
         <div>Popover content</div>
       </Popover.Content>
     </Popover>
