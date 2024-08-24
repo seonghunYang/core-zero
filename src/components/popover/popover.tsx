@@ -15,6 +15,7 @@ export interface PopoverContentDataProps
   extends Omit<InteractionDataProps, "data-focus"> {
   "data-open"?: string;
   "data-placement"?: Placement;
+  "data-closed"?: string;
 }
 
 export interface PopoverState extends OverlayCallback {

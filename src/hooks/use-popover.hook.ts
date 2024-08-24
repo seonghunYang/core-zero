@@ -134,6 +134,8 @@ export function usePopover<
 
     if (state.isOpen) {
       result["data-open"] = "";
+    } else {
+      result["data-closed"] = "";
     }
 
     result["data-placement"] = placement;

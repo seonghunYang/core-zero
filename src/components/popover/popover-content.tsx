@@ -9,6 +9,7 @@ import {
 import { mergeRef } from "src/utils/merge";
 import { InteractionState } from "src/types/interactions";
 import { convertDataPropsToState } from "src/utils/interactions";
+import { useExitAnimation } from "src/hooks/use-exit-animation.hook";
 
 type PopoverContentChildrenProps = {
   isOpen: boolean;
@@ -56,11 +57,17 @@ export const PopoverContent: PopoverContentComponent = forwardRef(
 
     const Element = as || "div";
 
+    const isExiting = useExitAnimation(
+      mergeRef(ref, popoverContext?.popoverRef),
+      isOpen ?? false
+    );
+
+    console.log("isExiting", isExiting);
     const renderProps = convertDataPropsToContentRenderProps();
 
     return (
       <>
-        {isOpen && (
+        {(isOpen || isExiting) && (
           <Overlay>
             <div
               {...underlayProps}
