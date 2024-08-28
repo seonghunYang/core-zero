@@ -62,7 +62,6 @@ export const PopoverContent: PopoverContentComponent = forwardRef(
       isOpen ?? false
     );
 
-    console.log("isExiting", isExiting);
     const renderProps = convertDataPropsToContentRenderProps();
 
     return (

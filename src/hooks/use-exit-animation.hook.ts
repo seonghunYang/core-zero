@@ -1,4 +1,5 @@
 import { RefObject, useCallback, useLayoutEffect, useState } from "react";
+import { flushSync } from "react-dom";
 
 type ExitState = "idle" | "exiting" | "exited";
 
@@ -10,12 +11,11 @@ export function useExitAnimation(
   const [exitState, setExitState] = useState<ExitState>("idle");
 
   if (!isOpen && ref.current && exitState === "idle") {
-    // 바로 값을 넘겨줘야함
-    // isExiting = true;
     setExitState("exiting");
     setIsExiting(true);
   }
 
+  // 컴포넌트가 제거되면 동작이 완료되었기에 idle로 변경
   if (!ref.current && exitState === "exited") {
     setExitState("idle");
   }
@@ -28,8 +28,6 @@ export function useExitAnimation(
   useLayoutEffect(() => {
     if (isExiting && ref.current) {
       const computedStyle = window.getComputedStyle(ref.current);
-      console.log("computedStyle", computedStyle.animation);
-      console.log("computedStyle", computedStyle.animationName);
       if (
         computedStyle.animationName &&
         computedStyle.animationName !== "none"
@@ -37,18 +35,17 @@ export function useExitAnimation(
         const handleAnimationEnd = (e: AnimationEvent) => {
           if (e.target === ref.current) {
             element.removeEventListener("animationend", handleAnimationEnd);
-            handleExitEnd();
+            flushSync(() => handleExitEnd());
           }
         };
-
         const element = ref.current;
         element.addEventListener("animationend", handleAnimationEnd);
         return () => {
           element.removeEventListener("animationend", handleAnimationEnd);
         };
+      } else {
+        handleExitEnd();
       }
-    } else {
-      handleExitEnd();
     }
   }, [isExiting, ref, handleExitEnd]);
 
