@@ -2,7 +2,9 @@ import type { Meta, StoryObj } from "@storybook/react";
 
 import { Popover, PopoverContent, PopoverTrigger } from ".";
 import { usePopover } from "../../hooks/use-popover.hook";
-import { useRef, useState } from "react";
+import { forwardRef, RefObject, useRef, useState } from "react";
+import { ChevronUpIcon } from "@radix-ui/react-icons";
+import clsx from "clsx";
 
 const meta = {
   title: "src/Components/Popover",
@@ -13,6 +15,27 @@ const meta = {
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+function Example() {
+  const { triggerProps, popoverContentProps } = usePopover({
+    defaultOpen: false,
+  });
+
+  return (
+    <>
+      <PopoverTrigger {...triggerProps} as={MyCustomButton}>
+        click
+      </PopoverTrigger>
+      <PopoverContent {...popoverContentProps}>
+        <div>Popover content</div>
+      </PopoverContent>
+    </>
+  );
+}
+
+export const Examples: Story = {
+  render: Example,
+};
 
 export const Simple: Story = {
   render: () => (
@@ -100,6 +123,29 @@ export const RenderProps: Story = {
   ),
 };
 
+export const RenderPropsStyling: Story = {
+  render: () => (
+    <Popover placement="top">
+      <Popover.Trigger>click</Popover.Trigger>
+      <Popover.Content>
+        {({ placement }) => (
+          <>
+            <ChevronUpIcon
+              className={clsx(
+                "w-6 h-6 text-black/50",
+                placement === "top" && "rotate-180",
+                placement === "left" && "rotate-90",
+                placement === "top" && "rotate-270"
+              )}
+            />
+            <div>{placement}</div>
+          </>
+        )}
+      </Popover.Content>
+    </Popover>
+  ),
+};
+
 export const SimpleControl: Story = {
   render: () => {
     const [isOpen, setOpen] = useState(false);
@@ -107,6 +153,7 @@ export const SimpleControl: Story = {
     const handleChange = (isOpen: boolean) => {
       setOpen(isOpen);
     };
+
     return (
       <>
         <Popover isOpen={isOpen} onChange={handleChange}>
@@ -144,14 +191,12 @@ export const PlacementAndOffsetWithHook: Story = {
     });
 
     return (
-      <>
-        <Popover {...rootProps}>
-          <Popover.Trigger>click</Popover.Trigger>
-          <Popover.Content>
-            <div>Popover content</div>
-          </Popover.Content>
-        </Popover>
-      </>
+      <Popover {...rootProps}>
+        <Popover.Trigger>click</Popover.Trigger>
+        <Popover.Content>
+          <div>Popover content</div>
+        </Popover.Content>
+      </Popover>
     );
   },
 };
@@ -160,24 +205,22 @@ export const CustomLogic: Story = {
   render: () => {
     const { rootProps, close } = usePopover({
       defaultOpen: false,
-      onClose: () => console.log("close"),
     });
 
     const handleClose = () => {
-      // console.log("close");
+      // logger.click("...")
+      console.log("hi");
       close();
     };
 
     return (
-      <>
-        <Popover {...rootProps} onClose={handleClose}>
-          <Popover.Trigger>click</Popover.Trigger>
-          <Popover.Content>
-            <button onClick={handleClose}>hi</button>
-            <div>Popover content</div>
-          </Popover.Content>
-        </Popover>
-      </>
+      <Popover {...rootProps} onClose={handleClose}>
+        <Popover.Trigger>click</Popover.Trigger>
+        <Popover.Content>
+          <button onClick={handleClose}>hi</button>
+          <div>Popover content</div>
+        </Popover.Content>
+      </Popover>
     );
   },
 };
@@ -210,14 +253,12 @@ export const CustomComponentWithRef: Story = {
     });
 
     return (
-      <>
-        <Popover {...rootProps}>
-          <div {...triggerProps}>click</div>
-          <Popover.Content>
-            <div>Popover content</div>
-          </Popover.Content>
-        </Popover>
-      </>
+      <Popover {...rootProps}>
+        <div {...triggerProps}>click</div>
+        <Popover.Content>
+          <div>Popover content</div>
+        </Popover.Content>
+      </Popover>
     );
   },
 };
@@ -270,11 +311,30 @@ export const WithoutCompoundComponent: Story = {
     });
 
     return (
+      <div>
+        <PopoverTrigger as="div" {...triggerProps}>
+          click
+        </PopoverTrigger>
+        <PopoverContent {...popoverContentProps} placement="left">
+          <div>Popover content</div>
+        </PopoverContent>
+      </div>
+    );
+  },
+};
+
+export const WithoutCompoundComponentAndCustomComponent: Story = {
+  render: () => {
+    const { triggerProps, popoverContentProps } = usePopover<HTMLButtonElement>(
+      {
+        defaultOpen: false,
+      }
+    );
+
+    return (
       <>
         <div>
-          <PopoverTrigger as="div" {...triggerProps}>
-            click
-          </PopoverTrigger>
+          <button {...triggerProps}>click</button>
           <PopoverContent {...popoverContentProps}>
             <div>Popover content</div>
           </PopoverContent>
@@ -304,6 +364,29 @@ export const WithoutCompoundComponentWithCustomRef: Story = {
             <div>Popover content</div>
           </PopoverContent>
         </div>
+      </>
+    );
+  },
+};
+
+const MyCustomButton = forwardRef<HTMLButtonElement, any>(function (props, ref) {
+  return <button className="..." ref={ref} {...props} />;
+});
+
+export const PolymorphicOwnCustomComponent: Story = {
+  render: () => {
+    const { triggerProps, popoverContentProps } = usePopover({
+      defaultOpen: false,
+    });
+
+    return (
+      <>
+        <PopoverTrigger {...triggerProps} as={MyCustomButton}>
+          click
+        </PopoverTrigger>
+        <PopoverContent {...popoverContentProps}>
+          <div>Popover content</div>
+        </PopoverContent>
       </>
     );
   },
