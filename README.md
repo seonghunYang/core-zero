@@ -12,7 +12,8 @@
 
 ## Documentation
 
-Visit official [documentation](https://core-zero-docs.vercel.app/)
+Visit official <a href="https://core-zero-docs.vercel.app/" target="_blank">documentation</a>
+
 
 <br />
 
