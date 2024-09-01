@@ -1,6 +1,6 @@
 {
   "name": "core-zero",
-  "version": "0.0.2",
+  "version": "0.0.5",
   "description": "A very simple, flexible, accessible, and interactive headless component",
   "main": "./dist/bundle.js",
   "module": "./dist/esm/bundle.js",
@@ -21,7 +21,8 @@
     "test:ci": "jest --ci",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "type": "tsc"
+    "type": "tsc",
+    "prepack": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -35,7 +36,7 @@
   "bugs": {
     "url": "https://github.com/seonghunYang/core-zero/issues"
   },
-  "homepage": "https://github.com/seonghunYang/core-zero#readme",
+  "homepage": "https://core-zero-docs.vercel.app",
   "peerDependencies": {
     "react": "^18.3.1",
     "react-dom": "^18.2.0"
